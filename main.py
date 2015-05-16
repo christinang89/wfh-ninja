@@ -1,7 +1,21 @@
 from flask import *
 from flask.json import JSONEncoder
+from flask.ext.sqlalchemy import SQLAlchemy
+
 import simplejson as json
+import os, sys
+
 app = Flask(__name__)
+app.config.from_object(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+if app.config['SQLALCHEMY_DATABASE_URI'] == None:
+    print "Need database config"
+    sys.exit(1)
+
+db = SQLAlchemy(app)
+
+import models
 
 @app.route("/")
 def hello():
