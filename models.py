@@ -41,11 +41,14 @@ class Vote(db.Model):
     value = db.Column(db.Integer)
     quote_id = db.Column(db.Integer, db.ForeignKey('quote.id'))
 
-    def __init__(self, id, ip, value, quote_id):
-        self.id = id
+    def __init__(self, ip, value, quote_id):
         self.ip = ip
         self.value = value
         self.quote_id = quote_id
 
     def __repr__(self):
         return json.dumps({"id": self.id, "ip": self.ip, "value": self.value, "quote_id": self.quote_id})
+
+    @property
+    def serialize(self):
+        return {"id": self.id, "ip": self.ip, "value": self.value, "quote_id": self.quote_id}

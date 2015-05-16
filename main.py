@@ -23,27 +23,39 @@ import models
 def hello():
     return "Hello World!"
 
-@app.route("/quotes", methods = ['GET'])
-def get_quotes():
-    d = {"excuseIds": ["1","2"]} 
-    return jsonify(**d)
+@app.route("/quote", methods = ['GET'])
+def get_quote():
+    quotes = session.query()
 
-@app.route("/quotes/<int:id>", methods = ['GET'])
-def get_quote(id):
-    d = {1:{"excuse":"test"}, 2:{"excuse":"boo"}}
-    return jsonify(**d[id])
+    return jsonify(list = [i.serialize for i in quotes])
 
-@app.route("/quotes", methods = ['POST'])
-def set_quote():
+@app.route("/quote/<int:id>", methods = ['GET'])
+def get_single_quote(id):
+    # quote = models.Quote.query.get(id)
+
+    # return jsonify(quote.serialize)
+
+@app.route("/quote", methods = ['POST'])
+def post_new_quote():
     body = request.get_json()
     conditions = {}
     if "conditions" in body:
         conditions = body['conditions']
 
-    me = models.Quote(text = body['text'], conditions = json.dumps(conditions), date_created = datetime.datetime.utcnow(), view_count = 0)
-    db.session.add(me)
+    quote = models.Quote(text = body['text'], conditions = json.dumps(conditions), date_created = datetime.datetime.utcnow(), view_count = 0)
+    db.session.add(quote)
     db.session.commit()
-    return jsonify(me.serialize)
+
+    return jsonify(quote.serialize)
+
+@app.route("/quote/<int:quote_id>/vote", methods = ['POST'])
+def post_new_vote(quote_id):
+    body = request.get_json()
+    vote = models.Vote(ip = request.remote_addr, value = body['value'], quote_id = quote_id)
+    db.session.add(vote)
+    db.session.commit()
+
+    return jsonify(vote.serialize)
 
 if __name__ == "__main__":
     app.debug = True    
