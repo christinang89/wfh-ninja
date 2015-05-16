@@ -16,7 +16,7 @@ import uuid
 class Quote(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     text = db.Column(db.String(500))
-    conditions = db.Column(db.JSON)
+    conditions = db.Column(db.Text)
     dateCreated = db.Column(db.DateTime)
     viewCount = db.Column(db.Integer)
     voteIds = db.relationship('vote', backref='quote', lazy='dynamic')
@@ -45,4 +45,4 @@ class Vote(db.Model):
         self.quoteId = quoteId
 
     def __repr__(self):
-        return json.dumps("id": self.id, "ip": self.ip, "value": self.value, "quoteId" = self.quoteId)
+        return json.dumps({"id": self.id, "ip": self.ip, "value": self.value, "quoteId": self.quoteId})

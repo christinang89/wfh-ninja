@@ -5,6 +5,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import simplejson as json
 import os, sys
 
+
 app = Flask(__name__)
 app.config.from_object(__name__)
 
@@ -21,12 +22,12 @@ import models
 def hello():
     return "Hello World!"
 
-@app.route("/excuses", methods = ['GET'])
-def getExcuses():
+@app.route("/quotes", methods = ['GET'])
+def getQuotes():
     d = {"excuseIds": ["1","2"]} 
     return jsonify(**d)
 
-@app.route("/excuses/<int:id>", methods = ['GET'])
+@app.route("/quotes/<int:id>", methods = ['GET'])
 def getExcuse(id):
     d = {1:{"excuse":"test"}, 2:{"excuse":"boo"}}
     return jsonify(**d[id])
