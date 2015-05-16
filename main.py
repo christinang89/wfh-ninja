@@ -33,7 +33,7 @@ def get_quote(id):
     d = {1:{"excuse":"test"}, 2:{"excuse":"boo"}}
     return jsonify(**d[id])
 
-@app.route("/quote", methods = ['POST'])
+@app.route("/quotes", methods = ['POST'])
 def set_quote():
     body = request.get_json()
     conditions = {}
@@ -43,6 +43,7 @@ def set_quote():
     me = models.Quote(text = body['text'], conditions = json.dumps(conditions), date_created = datetime.datetime.utcnow(), view_count = 0)
     db.session.add(me)
     db.session.commit()
+    return jsonify(me.serialize)
 
 if __name__ == "__main__":
     app.debug = True    

@@ -29,6 +29,11 @@ class Quote(db.Model):
     def __repr__(self):
         return json.dumps({"id": self.id, "text": self.text, "conditions": self.conditions, "date_created": self.date_created, "view_count": self.view_count})
 
+    @property
+    def serialize(self):
+        return {"id": self.id, "text": self.text, "conditions": self.conditions, "date_created": self.date_created.isoformat(), "view_count": self.view_count}
+    
+
 
 class Vote(db.Model):
     id = db.Column(db.Integer, primary_key = True)
