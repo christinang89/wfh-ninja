@@ -25,15 +25,15 @@ def hello():
 
 @app.route("/quote", methods = ['GET'])
 def get_quote():
-    quotes = session.query()
-
-    return jsonify(list = [i.serialize for i in quotes])
+    result = db.session.query(models.Vote.quote_id, db.func.sum(models.Vote.value).label("score")).group_by(models.Vote.quote_id).order_by("score DESC").all()
+    
+    return jsonify(result)
 
 @app.route("/quote/<int:id>", methods = ['GET'])
 def get_single_quote(id):
-    # quote = models.Quote.query.get(id)
+    quote = models.Quote.query.get(id)
 
-    # return jsonify(quote.serialize)
+    return jsonify(quote.serialize)
 
 @app.route("/quote", methods = ['POST'])
 def post_new_quote():
@@ -42,8 +42,12 @@ def post_new_quote():
     if "conditions" in body:
         conditions = body['conditions']
 
-    quote = models.Quote(text = body['text'], conditions = json.dumps(conditions), date_created = datetime.datetime.utcnow(), view_count = 0)
+    quote = models.Quote(text = body['text'], conditions = json.dumps(conditions), date_created = datetime.datetime.utcnow(), view_count = 1)
     db.session.add(quote)
+    db.session.commit()
+
+    vote = models.Vote(ip = request.remote_addr, value = 1, quote_id = quote.id)        #auto upvote every new quote by 1
+    db.session.add(vote)
     db.session.commit()
 
     return jsonify(quote.serialize)
