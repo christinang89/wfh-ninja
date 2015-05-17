@@ -24,7 +24,8 @@ def hello():
 
 @app.route("/quote", methods = ['GET'])
 def get_quote():
-    result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).filter_by(active=True).group_by(Vote.quote_id).order_by("score DESC").all()
+
+    result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").join(Quote).filter(Quote.active == True).all()
     return jsonify(result)
 
 @app.route("/quote/<int:id>", methods = ['GET'])
