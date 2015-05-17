@@ -144,16 +144,16 @@ var Example = React.createClass({
     return (
 		<div className="inner cover">
 		
-              <p class="lead">I'm working from home today because...</p>
+              <p className="lead">I'm working from home today because...</p>
               
               <h1>{this.state.quoteText}</h1>
               
-              <p class="lead">
+              <p className="lead">
 				<BootstrapButton onClick={this.vote(-1)} className="btn btn-lg btn-danger">
-				  This Won't Fly
+				  Hell, Yeah!
 				</BootstrapButton>
 				<BootstrapButton onClick={this.vote(1)} className="btn btn-lg btn-success">
-				  Hell Yeah
+				  They ain't gonna buy it.
 				</BootstrapButton>
               </p>
 		</div>
