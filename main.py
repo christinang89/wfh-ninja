@@ -32,7 +32,8 @@ def get_quote():
 @app.route("/quote/<int:id>", methods = ['GET'])
 def get_single_quote(id):
     quote = models.Quote.query.get(id)
-
+    quote.view_count += 1
+    db.session.commit()
     return jsonify(quote.serialize)
 
 @app.route("/quote", methods = ['POST'])
