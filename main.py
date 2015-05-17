@@ -1,11 +1,11 @@
 from flask import *
 from flask.json import JSONEncoder
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.cors import CORS
 
 import simplejson as json
 import os, sys
 import datetime
-
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -61,6 +61,7 @@ def post_new_vote(quote_id):
 
     return jsonify(vote.serialize)
 
+cors = CORS(app)
 if __name__ == "__main__":
     app.debug = True    
     app.run()
