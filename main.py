@@ -46,7 +46,7 @@ def post_new_quote():
     db.session.add(quote)
     db.session.commit()
 
-    vote = models.Vote(ip = request.remote_addr, value = 1, quote_id = quote.id)        #auto upvote every new quote by 1
+    vote = models.Vote(ip = request.remote_addr, value = 1, date_created = datetime.datetime.utcnow(), quote_id = quote.id)        #auto upvote every new quote by 1
     db.session.add(vote)
     db.session.commit()
 
