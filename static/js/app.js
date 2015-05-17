@@ -1,86 +1,19 @@
-var BootstrapButton = React.createClass({
+var Main = React.createClass({
   render: function() {
     return (
-      <a {...this.props}
-        href="javascript:;"
-        role="button"
-        className={(this.props.className || '') + ' btn'} />
-    );
-  }
-});
-
-var Example = React.createClass({
-  getInitialState: function() {
-    return {
-      quoteText: '',
-      quotes: [],
-      index: -1
-    };
-  },
-
-  componentDidMount: function() {
-    $.get("http://wfh.ninja/api/quote", function(result) {
-      if (this.isMounted()) {
-        var quoteIds = _.keys(result);
-        quoteIds = _.sample(quoteIds, quoteIds.length);
-
-        this.setState({
-          quotes: quoteIds
-        });
-
-        this.loadNextQuote();
-      }
-    }.bind(this));
-  },
-
-  loadNextQuote: function() {
-    if (this.state.index >= (this.state.quotes.length - 1)) {
-      quoteIds = _.sample(this.state.quotes, this.state.quotes.length);
-      this.setState({
-        index: -1,
-        quotes: quoteIds
-      });
-    }
-
-    var quoteId = this.state.quotes[this.state.index + 1];
-
-    $.get("http://wfh.ninja/api/quote/" + quoteId, function(result) {
-      if (this.isMounted()) {
-        this.setState({
-          quoteText: result.text,
-          index: this.state.index + 1
-        });
-      }
-    }.bind(this));
-  },
-
-  vote: function(value) {
-    return function() {
-      var quoteId = this.state.quotes[this.state.index];
-      if (!quoteId) return;
-
-      $.ajax({
-        type: 'POST',
-        url: "http://wfh.ninja/api/quote/" + quoteId + '/vote',
-        data: JSON.stringify({ value: value }),
-        contentType: "application/json; charset=utf-8",
-        success: function(result) { this.loadNextQuote() }.bind(this)
-      });
-    }.bind(this);
-  },
-
-  render: function() {
-    return (
-      <div className="inner cover">
-        <p className="lead">I'm working from home today because...</p>
-        <h1>{this.state.quoteText}</h1>
-        <p className="lead">
-          <BootstrapButton onClick={this.vote(1)} className="btn btn-lg btn-success">Hell, Yeah!</BootstrapButton>
-          <BootstrapButton onClick={this.vote(-1)} className="btn btn-lg btn-danger">This won't fly.</BootstrapButton>
-        </p>
+      <div id="main" className="site-wrapper">
+        <a href="https://github.com/christinang89/wfh-ninja">
+          <img style={{position: 'absolute', top: 0, right: 0, border: 0}} src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"/>
+        </a>
+        <div className="site-wrapper-inner">
+          <div className="cover-container">
+            <Quotes />
+						<SubmitForm />
+          </div>
+        </div>
       </div>
     );
   }
 });
 
-React.render(<Example />, document.getElementById('main'));
+React.render(<Main />, document.body);

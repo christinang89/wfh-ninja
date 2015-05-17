@@ -18,23 +18,11 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <script type="text/javascript">
+    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";analytics.load("YOUR_WRITE_KEY");analytics.page()}}();
+  </script>
 </head>
 <body>
-  <div class="site-wrapper">
-    <a href="https://github.com/christinang89/wfh-ninja"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
-    <div class="site-wrapper-inner">
-      <div class="cover-container">
-        <div id="main"></div>
-          <a href="https://twitter.com/share" class="twitter-share-button" data-via="christinang89" data-dnt="true">Tweet</a>
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        <div class="mastfoot">
-          <div class="inner">
-            <p>Original <a href="http://getbootstrap.com/examples/cover/" target="_blank">Cover</a> template for <a href="http://getbootstrap.com" target="_blank">Bootstrap</a> created by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <script src="../shared/thirdparty/es5-shim.min.js"></script>
   <script src="../shared/thirdparty/es5-sham.min.js"></script>
   <script src="../shared/thirdparty/console-polyfill.js"></script>
@@ -42,6 +30,9 @@
   <script src="thirdparty/JSXTransformer.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>
   <script type="text/javascript" src="thirdparty/bootstrap.min.js" charset="utf-8"></script>
+  <!-- Application components -->
+  <script type="text/jsx" src="js/quotes.js"></script>
+  <script type="text/jsx" src="js/submit_form.js"></script>
   <script type="text/jsx" src="js/app.js"></script>
 </body>
 </html>
