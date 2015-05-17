@@ -149,10 +149,10 @@ var Example = React.createClass({
               <h1>{this.state.quoteText}</h1>
               
               <p className="lead">
-				<BootstrapButton onClick={this.vote(-1)} className="btn btn-lg btn-danger">
+				<BootstrapButton onClick={this.vote(1)} className="btn btn-lg btn-success">
 				  Hell, Yeah!
 				</BootstrapButton>
-				<BootstrapButton onClick={this.vote(1)} className="btn btn-lg btn-success">
+				<BootstrapButton onClick={this.vote(-1)} className="btn btn-lg btn-danger">
 				  They ain't gonna buy it.
 				</BootstrapButton>
               </p>
