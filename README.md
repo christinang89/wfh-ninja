@@ -4,7 +4,7 @@
 
 GET /quote - Returns list of quote Id by vote count sorted in descending order
 
-GET /quote/<id> - Returns details of quote
+GET /quote/[id] - Returns details of quote
 
 POST /quote - Submits a new quote
 Accepts application/json
@@ -16,7 +16,8 @@ Accepts application/json
 }
 ```
 
-POST /quote/<quote_id>/vote - Submits a new vote for Quote of id quote_id
+POST /quote/[quote_id]/vote - Submits a new vote for Quote of id quote_id
+
 Accepts application/json
 ```
 {
