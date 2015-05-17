@@ -153,7 +153,7 @@ var Example = React.createClass({
 				  Hell, Yeah!
 				</BootstrapButton>
 				<BootstrapButton onClick={this.vote(-1)} className="btn btn-lg btn-danger">
-				  They won't fly.
+				  This won't fly.
 				</BootstrapButton>
               </p>
 		</div>
