@@ -1,3 +1,5 @@
-from main import db
+from models import db
+from main import app
 
-db.create_all()
+with app.app_context():
+    db.create_all()
