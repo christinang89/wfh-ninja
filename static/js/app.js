@@ -95,7 +95,7 @@ var Example = React.createClass({
     };
   },
   componentDidMount: function() {
-    $.get("http://wfh.ninja/quote", function(result) {
+    $.get("http://wfh.ninja/api/quote", function(result) {
 	  if (this.isMounted()) {
 	    var quoteIds = _.keys(result);
 		quoteIds = _.sample(quoteIds, quoteIds.length);
@@ -115,7 +115,7 @@ var Example = React.createClass({
 	  });
 	}
 	var quoteId = this.state.quotes[this.state.index + 1];
-    $.get("http://wfh.ninja/quote/" + quoteId, function(result) {
+    $.get("http://wfh.ninja/api/quote/" + quoteId, function(result) {
 	  if (this.isMounted()) {
         this.setState({
           quoteText: result.text,
@@ -130,7 +130,7 @@ var Example = React.createClass({
 		if (!quoteId) return;
 		$.ajax({
 		  type: 'POST',
-		  url: "http://wfh.ninja/quote/" + quoteId + '/vote', 
+		  url: "http://wfh.ninja/api/quote/" + quoteId + '/vote', 
 		  data: JSON.stringify({ value: value }),
 		  contentType: "application/json; charset=utf-8",
 		  success: function(result) {
