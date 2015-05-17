@@ -11,21 +11,23 @@ class Quote(db.Model):
     conditions = db.Column(db.Text)
     date_created = db.Column(db.DateTime)
     view_count = db.Column(db.Integer)
+    ip = db.Column(db.String(15))
     active = db.Column(db.Boolean)
 
-    def __init__(self, text, conditions, date_created, view_count, active):
+    def __init__(self, text, conditions, date_created, view_count, ip, active):
         self.text = text
         self.conditions = conditions
         self.date_created = date_created
         self.view_count = view_count
+        self.ip = ip
         self.active = active
 
     def __repr__(self):
-        return json.dumps({"id": self.id, "text": self.text, "conditions": self.conditions, "date_created": self.date_created, "view_count": self.view_count, "active": self.active})
+        return json.dumps({"id": self.id, "text": self.text, "conditions": self.conditions, "date_created": self.date_created, "view_count": self.view_count, "ip": self.ip, "active": self.active})
 
     @property
     def serialize(self):
-        return {"id": self.id, "text": self.text, "conditions": self.conditions, "date_created": self.date_created.isoformat(), "view_count": self.view_count, "active": self.active}
+        return {"id": self.id, "text": self.text, "conditions": self.conditions, "date_created": self.date_created.isoformat(), "view_count": self.view_count, "ip": self.ip, "active": self.active}
     
 
 

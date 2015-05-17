@@ -42,7 +42,7 @@ def post_new_quote():
     if "conditions" in body:
         conditions = body['conditions']
 
-    quote = Quote(text = body['text'], conditions = json.dumps(conditions), date_created = datetime.datetime.utcnow(), view_count = 1, active = False)
+    quote = Quote(text = body['text'], conditions = json.dumps(conditions), date_created = datetime.datetime.utcnow(), view_count = 1, ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), active = False)
     db.session.add(quote)
     db.session.commit()
 
