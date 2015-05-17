@@ -68,7 +68,9 @@ var Example = React.createClass({
   render: function() {
     return (
 		<div className="inner cover">
-		
+							<div className="sleepy_cat">
+								<img src="img/sleepycat.jpg"/>
+							</div>
               <p className="lead">I'm working from home today because...</p>
               
               <h1>{this.state.quoteText}</h1>
