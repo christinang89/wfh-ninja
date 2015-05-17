@@ -45,7 +45,7 @@ def post_new_quote():
     db.session.add(quote)
     db.session.commit()
 
-    vote = Vote(ip = request.environ.get('X-Forward-For', request.remote_addr), value = 1, date_created = datetime.datetime.utcnow(), quote_id = quote.id)        #auto upvote every new quote by 1
+    vote = Vote(ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), value = 1, date_created = datetime.datetime.utcnow(), quote_id = quote.id)        #auto upvote every new quote by 1
     db.session.add(vote)
     db.session.commit()
 
@@ -55,7 +55,7 @@ def post_new_quote():
 def post_new_vote(quote_id):
     body = request.get_json()
 
-    vote = Vote(ip = request.environ.get('X-Forward-For', request.remote_addr), value = body['value'], date_created = datetime.datetime.utcnow(), quote_id = quote_id)
+    vote = Vote(ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), value = body['value'], date_created = datetime.datetime.utcnow(), quote_id = quote_id)
     db.session.add(vote)
     db.session.commit()
 
