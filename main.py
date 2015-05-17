@@ -55,7 +55,7 @@ def post_new_quote():
 @app.route("/quote/<int:quote_id>/vote", methods = ['POST'])
 def post_new_vote(quote_id):
     body = request.get_json()
-    vote = models.Vote(ip = request.remote_addr, value = body['value'], quote_id = quote_id)
+    vote = models.Vote(ip = request.remote_addr, value = body['value'], date_created = datetime.datetime.utcnow(), quote_id = quote_id)
     db.session.add(vote)
     db.session.commit()
 

@@ -39,16 +39,18 @@ class Vote(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     ip = db.Column(db.String(15))
     value = db.Column(db.Integer)
+    date_created = db.Column(db.DateTime)
     quote_id = db.Column(db.Integer, db.ForeignKey('quote.id'))
 
-    def __init__(self, ip, value, quote_id):
+    def __init__(self, ip, value, date_created, quote_id):
         self.ip = ip
         self.value = value
+        self.date_created = date_created
         self.quote_id = quote_id
 
     def __repr__(self):
-        return json.dumps({"id": self.id, "ip": self.ip, "value": self.value, "quote_id": self.quote_id})
+        return json.dumps({"id": self.id, "ip": self.ip, "value": self.value, "date_created": self.date_created, "quote_id": self.quote_id})
 
     @property
     def serialize(self):
-        return {"id": self.id, "ip": self.ip, "value": self.value, "quote_id": self.quote_id}
+        return {"id": self.id, "ip": self.ip, "value": self.value, "date_created": self.date_created.isoformat(), "quote_id": self.quote_id}
