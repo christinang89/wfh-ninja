@@ -126,7 +126,8 @@ body {
 
 h1 {
   line-height: 1.5;
-  font-size: 500%;
+  max-width: 100vw;
+  word-wrap: break-word;
   font-family: 'Bitter','Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', 'Sans-Serif';
 }
 
@@ -165,6 +166,9 @@ h1 {
   .mastfoot,
   .cover-container {
     width: 100%; /* Must be percentage or pixels for horizontal alignment */
+  }
+  h1 {
+    font-size: 400%;
   }
 }
 
