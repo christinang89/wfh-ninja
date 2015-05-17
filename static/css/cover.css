@@ -131,24 +131,6 @@ h1 {
   font-family: 'Bitter','Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', 'Sans-Serif';
 }
 
-.sleepy_cat {
-	position: relative;
-	display: inline-block;
-	margin-bottom: 40px;
-}
-.sleepy_cat img {
-	width: 400px;
-	max-width: 80vw;
-}
-.sleepy_cat:before {
-	content: "";
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	box-shadow: inset 0 0 10px 10px #333;
-}
 
 /*
  * Footer
