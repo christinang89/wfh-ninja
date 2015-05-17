@@ -1,6 +1,5 @@
 from flask import *
 from flask.json import JSONEncoder
-from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cors import CORS
 
 import simplejson as json
@@ -15,9 +14,9 @@ if app.config['SQLALCHEMY_DATABASE_URI'] == None:
     print "Need database config"
     sys.exit(1)
 
-db = SQLAlchemy(app)
+from models import db, Quote, Vote
 
-import models
+db.init_app(app)
 
 @app.route("/")
 def hello():
@@ -25,13 +24,12 @@ def hello():
 
 @app.route("/quote", methods = ['GET'])
 def get_quote():
-    result = db.session.query(models.Vote.quote_id, db.func.sum(models.Vote.value).label("score")).group_by(models.Vote.quote_id).order_by("score DESC").all()
-    
+    result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").all()
     return jsonify(result)
 
 @app.route("/quote/<int:id>", methods = ['GET'])
 def get_single_quote(id):
-    quote = models.Quote.query.get(id)
+    quote = Quote.query.get(id)
     quote.view_count += 1
     db.session.commit()
     return jsonify(quote.serialize)
@@ -43,11 +41,11 @@ def post_new_quote():
     if "conditions" in body:
         conditions = body['conditions']
 
-    quote = models.Quote(text = body['text'], conditions = json.dumps(conditions), date_created = datetime.datetime.utcnow(), view_count = 1)
+    quote = Quote(text = body['text'], conditions = json.dumps(conditions), date_created = datetime.datetime.utcnow(), view_count = 1)
     db.session.add(quote)
     db.session.commit()
 
-    vote = models.Vote(ip = request.remote_addr, value = 1, date_created = datetime.datetime.utcnow(), quote_id = quote.id)        #auto upvote every new quote by 1
+    vote = Vote(ip = request.remote_addr, value = 1, date_created = datetime.datetime.utcnow(), quote_id = quote.id)        #auto upvote every new quote by 1
     db.session.add(vote)
     db.session.commit()
 
@@ -56,7 +54,7 @@ def post_new_quote():
 @app.route("/quote/<int:quote_id>/vote", methods = ['POST'])
 def post_new_vote(quote_id):
     body = request.get_json()
-    vote = models.Vote(ip = request.remote_addr, value = body['value'], date_created = datetime.datetime.utcnow(), quote_id = quote_id)
+    vote = Vote(ip = request.remote_addr, value = body['value'], date_created = datetime.datetime.utcnow(), quote_id = quote_id)
     db.session.add(vote)
     db.session.commit()
 

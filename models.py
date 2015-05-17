@@ -1,17 +1,9 @@
-from main import app, db
 from flask import *
+from flask.ext.sqlalchemy import SQLAlchemy
 
 import simplejson as json
-import uuid
 
-# class Paste(db.Model):
-#     id = db.Column(db.String(36), unique=True, primary_key=True)
-#     poster = db.Column(db.String(51))
-#     paste = db.Column(db.Text())
-
-#     def __init__(self, text, poster="Anonymous"):
-#         self.paste = text
-#         self.id = str(uuid.uuid4())
+db = SQLAlchemy()
 
 class Quote(db.Model):
     id = db.Column(db.Integer, primary_key = True)
