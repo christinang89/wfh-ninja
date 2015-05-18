@@ -4,14 +4,20 @@ var Main = React.createClass({
     window.scrollDown = this.scrollDown;
   },
   
-  scrollUp: function() {
+  scrollUp: function(e) {
+    if (e) {
+      e.preventDefault();
+    }
     $('html, body').animate({
       scrollTop: 0,
       scrollLeft: 0
     }, 400);
   },
   
-  scrollDown: function() {
+  scrollDown: function(e) {
+    if (e) {
+      e.preventDefault();
+    }
     $('html, body').animate({
       scrollTop: document.body.scrollHeight,
       scrollLeft: 0
