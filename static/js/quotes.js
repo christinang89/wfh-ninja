@@ -54,12 +54,14 @@ var Quotes = React.createClass({
           quoteText: result.text,
           index: this.state.index + 1
         });
+        $('.vote-button').attr('disabled', false);
       }
     }.bind(this));
   },
 
   vote: function(value) {
     return function() {
+      $('.vote-button').attr('disabled', true);
       var quoteId = this.state.quotes[this.state.index];
       if (!quoteId) return;
 
@@ -68,7 +70,7 @@ var Quotes = React.createClass({
         url: "http://wfh.ninja/api/quote/" + quoteId + '/vote',
         data: JSON.stringify({ value: value }),
         contentType: "application/json; charset=utf-8",
-        success: function(result) { this.loadNextQuote() }.bind(this)
+        success: function(result) { this.loadNextQuote(); }.bind(this)
       });
     }.bind(this);
   },
@@ -79,8 +81,8 @@ var Quotes = React.createClass({
         <p className="lead">I'm working from home today because...</p>
         <h1>{this.state.quoteText}</h1>
         <p className="lead">
-          <VoteButton onClick={this.vote(1)} className="btn btn-lg btn-success">Hell, Yeah!</VoteButton>
-          <VoteButton onClick={this.vote(-1)} className="btn btn-lg btn-danger">This won't fly.</VoteButton>
+          <VoteButton onClick={this.vote(1)} className="btn btn-lg btn-success vote-button">Hell, Yeah!</VoteButton>
+          <VoteButton onClick={this.vote(-1)} className="btn btn-lg btn-danger vote-button">This won't fly.</VoteButton>
         </p>
 				<p className="twitter-wrapper" style={{height: '20px'}}>
 					<a href="https://twitter.com/share" className="twitter-share-button" data-via="christinang89" data-dnt="true">Tweet</a>

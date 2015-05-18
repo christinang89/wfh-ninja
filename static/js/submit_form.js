@@ -11,25 +11,19 @@ var SubmitForm = React.createClass({
     });
   },
   
-  lockForm: function() {
-    $('button').prop('disabled', true);
-  },
-  
-  unlockForm: function() {
-    $('button').prop('disabled', false);
-  },
-
   submit: function(e) {
     if (this.state.quoteText == "") { 
       return e.preventDefault(); 
     }
-    this.lockForm();
+    $('button').prop('disabled', true);
     $.ajax({
       type: 'POST',
       url: "http://wfh.ninja/api/quote",
       data: JSON.stringify({ text: this.state.quoteText }),
       contentType: "application/json; charset=utf-8",
-      success: function(result) { console.dir(result); this.unlockForm(); }.bind(this)
+      success: function(result) { 
+        $('button').prop('disabled', false);
+      }.bind(this)
     });
     return e.preventDefault();
   },
@@ -46,4 +40,3 @@ var SubmitForm = React.createClass({
     );
   }
 });
-
