@@ -30,13 +30,17 @@ var SubmitForm = React.createClass({
 
   render: function() {
     return (
-      <form onSubmit={this.submit}>
-        <div className="form-group">
-          <label for="suggestedQuote">I'm working from home because...</label>
-          <input type="text" className="form-control" onChange={this.handleChange} placeholder="Reason" value={this.state.quoteText}/>
+      <div className="site-wrapper-inner-auto">
+        <div className="cover-container">
+          <form onSubmit={this.submit} className="inner cover">
+            <div className="form-group">
+              <label htmlFor="suggestedQuote" className="lead">I'm working from home because...</label>
+              <input type="text" className="form-control" onChange={this.handleChange} placeholder="Reason" value={this.state.quoteText}/>
+            </div>
+            <button onClick={this.submit} className="btn btn-default">Submit</button>
+          </form>
         </div>
-        <button onClick={this.submit} className="btn btn-default">Submit</button>
-      </form>
+      </div>
     );
   }
 });

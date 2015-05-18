@@ -19,9 +19,9 @@ var Quotes = React.createClass({
   },
 
   componentDidMount: function() {
-		var twitter_script = document.createElement('script');
-		twitter_script.textContent = "!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');";
-		document.body.appendChild(twitter_script);
+    var twitter_script = document.createElement('script');
+    twitter_script.textContent = "!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');";
+    document.body.appendChild(twitter_script);
 
     $.get("http://wfh.ninja/api/quote", function(result) {
       if (this.isMounted()) {
@@ -77,16 +77,20 @@ var Quotes = React.createClass({
 
   render: function() {
     return (
-      <div className="inner cover">
-        <p className="lead">I'm working from home today because...</p>
-        <h1>{this.state.quoteText}</h1>
-        <p className="lead">
-          <VoteButton onClick={this.vote(1)} className="btn btn-lg btn-success vote-button">Hell, Yeah!</VoteButton>
-          <VoteButton onClick={this.vote(-1)} className="btn btn-lg btn-danger vote-button">This won't fly.</VoteButton>
-        </p>
-				<p className="twitter-wrapper" style={{height: '20px'}}>
-					<a href="https://twitter.com/share" className="twitter-share-button" data-via="christinang89" data-dnt="true">Tweet</a>
-				</p>
+      <div className="site-wrapper-inner">
+        <div className="cover-container">
+          <div className="inner cover">
+            <p className="lead">I'm working from home today because...</p>
+            <h1>{this.state.quoteText}</h1>
+            <p className="lead">
+              <VoteButton onClick={this.vote(1)} className="btn btn-lg btn-success vote-button">Hell, Yeah!</VoteButton>
+              <VoteButton onClick={this.vote(-1)} className="btn btn-lg btn-danger vote-button">This won't fly.</VoteButton>
+            </p>
+            <p className="twitter-wrapper" style={{height: '20px'}}>
+              <a href="https://twitter.com/share" className="twitter-share-button" data-via="christinang89" data-dnt="true">Tweet</a>
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
