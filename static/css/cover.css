@@ -111,11 +111,46 @@ body {
   border-bottom-color: #fff;
 }
 
+.mastfoot-nav > li {
+  display: inline-block;
+}
+.mastfoot-nav > li + li {
+  margin-left: 20px;
+}
+.mastfoot-nav > li > a {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing */
+  color: rgba(255,255,255,.75);
+  border-top: 2px solid transparent;
+}
+.mastfoot-nav > li > a:hover,
+.mastfoot-nav > li > a:focus {
+  background-color: transparent;
+  border-top-color: #a9a9a9;
+  border-top-color: rgba(255,255,255,.25);
+}
+.mastfoot-nav > .active > a,
+.mastfoot-nav > .active > a:hover,
+.mastfoot-nav > .active > a:focus {
+  color: #fff;
+  border-top-color: #fff;
+}
+
+.submit-quote {
+    height: 100vh;
+}
+
 @media (min-width: 768px) {
   .masthead-brand {
     float: left;
   }
   .masthead-nav {
+    float: right;
+  }
+  .mastfoot-nav {
     float: right;
   }
 }
@@ -150,9 +185,8 @@ h1 {
 .mastfoot {
   color: #999; /* IE8 proofing */
   color: rgba(255,255,255,.5);
-  font-size: 10px;
+  font-size: 12px;
 }
-
 
 /*
  * Affix and center
@@ -166,7 +200,8 @@ h1 {
   }
   .mastfoot {
     position: fixed;
-    bottom: 0;
+    bottom: 1.5vw;
+    right: 1.5vw;
   }
   /* Start the vertical centering */
   .site-wrapper-inner {
@@ -185,7 +220,6 @@ h1 {
 
 @media (min-width: 992px) {
   .masthead,
-  .mastfoot,
   .cover-container {
     width: 80%;
   }

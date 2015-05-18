@@ -22,7 +22,6 @@ var Quotes = React.createClass({
     var twitter_script = document.createElement('script');
     twitter_script.textContent = "!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');";
     document.body.appendChild(twitter_script);
-
     $.get("http://wfh.ninja/api/quote", function(result) {
       if (this.isMounted()) {
         var quoteIds = _.keys(result);
@@ -35,6 +34,19 @@ var Quotes = React.createClass({
         this.loadNextQuote();
       }
     }.bind(this));
+    window.forceQuote = this.forceQuote;
+  },
+  
+  forceQuote: function(quoteId) {
+    $.get("http://wfh.ninja/api/quote/" + quoteId, function(result) {
+      if (this.isMounted()) {
+        this.setState({
+          quoteText: result.text,
+          index: this.state.quotes.length // force invalid index to restart it again
+        });
+        $('.vote-button').attr('disabled', false);
+      }
+    }.bind(this));
   },
 
   loadNextQuote: function() {
@@ -44,6 +56,7 @@ var Quotes = React.createClass({
         index: -1,
         quotes: quoteIds
       });
+      this.state.index = -1;
     }
 
     var quoteId = this.state.quotes[this.state.index + 1];
@@ -63,8 +76,9 @@ var Quotes = React.createClass({
     return function() {
       $('.vote-button').attr('disabled', true);
       var quoteId = this.state.quotes[this.state.index];
-      if (!quoteId) return;
-
+      if (!quoteId) {
+        return this.loadNextQuote();
+      }
       $.ajax({
         type: 'POST',
         url: "http://wfh.ninja/api/quote/" + quoteId + '/vote',

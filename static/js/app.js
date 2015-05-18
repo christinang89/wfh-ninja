@@ -1,4 +1,23 @@
 var Main = React.createClass({
+  componentDidMount: function() {
+    window.scrollUp = this.scrollUp;
+    window.scrollDown = this.scrollDown;
+  },
+  
+  scrollUp: function() {
+    $('html, body').animate({
+      scrollTop: 0,
+      scrollLeft: 0
+    }, 400);
+  },
+  
+  scrollDown: function() {
+    $('html, body').animate({
+      scrollTop: document.body.scrollHeight,
+      scrollLeft: 0
+    }, 400);
+  },
+  
   render: function() {
     return (
       <div className="site-wrapper">
@@ -7,6 +26,17 @@ var Main = React.createClass({
         </a>
         <Quotes />
         <SubmitForm />
+        <div className="mastfoot clearfix">
+          <div className="inner">                
+            <nav>
+              <ul className="nav mastfoot-nav">
+                <li><a href="#"><div onClick={this.scrollDown}>Submit</div></a></li>
+                <li><a href="#">Docs</a></li>
+                <li><a href="#">About</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </div>
     );
   }
