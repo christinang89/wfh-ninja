@@ -24,6 +24,10 @@ login_manager.init_app(app)
 
 login_manager.login_view = 'login'
 
+@app.before_request
+def before_request():
+    g.user = current_user
+    
 @app.route("/")
 def hello():
     return "Hello World!"
@@ -56,11 +60,20 @@ def login():
     flash('Logged in successfully')
     return redirect(request.args.get('next') or url_for('index'))
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index')) 
+
 @app.route("/quote", methods = ['GET'])
 def get_quote():
 
     result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").join(Quote).filter(Quote.active == True).all()
     return jsonify(result)
+
+@app.route('/approval', methods=['GET', 'POST'])
+@login_required
+def get_unapproved_quotes():
 
 @app.route("/quote/<int:id>", methods = ['GET'])
 def get_single_quote(id):
