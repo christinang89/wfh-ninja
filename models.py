@@ -18,7 +18,7 @@ class Quote(db.Model):
     def __init__(self, text, conditions, date_created, view_count, ip, active):
         self.text = text
         self.conditions = conditions
-        self.date_created = date_created
+        self.date_created = datetime.datetime.utcnow()
         self.view_count = view_count
         self.ip = ip
         self.active = active
@@ -41,7 +41,7 @@ class Vote(db.Model):
     def __init__(self, ip, value, date_created, quote_id):
         self.ip = ip
         self.value = value
-        self.date_created = date_created
+        self.date_created = datetime.datetime.utcnow()
         self.quote_id = quote_id
 
     def __repr__(self):

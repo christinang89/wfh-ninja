@@ -67,7 +67,6 @@ def logout():
 
 @app.route("/quote", methods = ['GET'])
 def get_quote():
-
     result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").join(Quote).filter(Quote.active == True).all()
     return jsonify(result)
 
@@ -90,11 +89,11 @@ def post_new_quote():
     if "conditions" in body:
         conditions = body['conditions']
 
-    quote = Quote(text = body['text'], conditions = json.dumps(conditions), date_created = datetime.datetime.utcnow(), view_count = 1, ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), active = False)
+    quote = Quote(text = body['text'], conditions = json.dumps(conditions), view_count = 1, ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), active = False)
     db.session.add(quote)
     db.session.commit()
 
-    vote = Vote(ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), value = 1, date_created = datetime.datetime.utcnow(), quote_id = quote.id)        #auto upvote every new quote by 1
+    vote = Vote(ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), value = 1, quote_id = quote.id)        #auto upvote every new quote by 1
     db.session.add(vote)
     db.session.commit()
 
@@ -104,7 +103,7 @@ def post_new_quote():
 def post_new_vote(quote_id):
     body = request.get_json()
 
-    vote = Vote(ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), value = body['value'], date_created = datetime.datetime.utcnow(), quote_id = quote_id)
+    vote = Vote(ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), value = body['value'], quote_id = quote_id)
     db.session.add(vote)
     db.session.commit()
 
