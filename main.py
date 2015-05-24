@@ -1,6 +1,7 @@
 from flask import *
 from flask.json import JSONEncoder
 from flask.ext.cors import CORS
+from flask.ext.login import LoginManager
 
 import simplejson as json
 import os, sys
@@ -18,9 +19,16 @@ from models import db, Quote, Vote
 
 db.init_app(app)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 @app.route("/")
 def hello():
     return "Hello World!"
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 @app.route("/quote", methods = ['GET'])
 def get_quote():
