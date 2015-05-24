@@ -57,12 +57,12 @@ class User(db.Model):
     id = db.Column('user_id', db.Integer, primary_key=True)
     email = db.Column('email', db.String(50), unique=True, index=True)
     password = db.Column('password', db.String(10))
-    registered_on = db.Column('registered_on', db.DateTime)
+    date_created = db.Column('date_created', db.DateTime)
  
     def __init__(self, password, email):
         self.password = password
         self.email = email
-        self.registered_on = datetime.datetime.utcnow()
+        self.date_created = datetime.datetime.utcnow()
 
     def is_authenticated(self):
         return True
@@ -81,5 +81,5 @@ class User(db.Model):
 
     @property
     def serialize(self):
-        return {"email": self.email, "password": self.password, "registered_on": self.registered_on.isoformat()}
+        return {"email": self.email, "password": self.password, "date_created": self.date_created.isoformat()}
  
