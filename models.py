@@ -30,7 +30,6 @@ class Quote(db.Model):
         return {"id": self.id, "text": self.text, "conditions": self.conditions, "date_created": self.date_created.isoformat(), "view_count": self.view_count, "ip": self.ip, "active": self.active}
     
 
-
 class Vote(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     ip = db.Column(db.String(15))
@@ -50,3 +49,18 @@ class Vote(db.Model):
     @property
     def serialize(self):
         return {"id": self.id, "ip": self.ip, "value": self.value, "date_created": self.date_created.isoformat(), "quote_id": self.quote_id}
+
+
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column('user_id', db.Integer, primary_key=True)
+    username = db.Column('username', db.String(20), unique=True, index=True)
+    password = db.Column('password', db.String(10))
+    email = db.Column('email', db.String(50), unique=True, index=True)
+    registered_on = db.Column('registered_on', db.DateTime)
+ 
+    def __init__(self, username, password, email):
+        self.username = username
+        self.password = password
+        self.email = email
+        self.registered_on = datetime.utcnow()
