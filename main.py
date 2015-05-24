@@ -27,7 +27,7 @@ login_manager.login_view = 'login'
 @app.before_request
 def before_request():
     g.user = current_user
-    
+
 @app.route("/")
 def hello():
     return "Hello World!"
@@ -52,6 +52,9 @@ def login():
         return render_template('login.html')
     username = request.form['username']
     password = request.form['password']
+    remember_me = False
+    if 'remember_me' in request.form:
+        remember_me = True
     registered_user = User.query.filter_by(username=username,password=password).first()
     if registered_user is None:
         flash('Username or Password is invalid' , 'error')
