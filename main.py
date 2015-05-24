@@ -6,10 +6,10 @@ from flask.ext.login import LoginManager, login_user , logout_user , current_use
 import simplejson as json
 import os, sys
 import datetime
+import config
 
 app = Flask(__name__)
-app.config['SESSION_TYPE'] = 'memcached'
-app.config['SECRET_KEY'] = 'super secret key'
+
 sess = Session()
 app.config.from_object(__name__)
 
@@ -42,12 +42,17 @@ def load_user(id):
 @app.route('/register', methods = ['POST'])
 def register():
     body = request.get_json()
+
+    if 'secret' not in body or body['secret'] != config.secret_key:
+        return jsonify({"Error": "Secret key is wrong"})
+
     email = body['email']
     password = body['password']
     user = User(email=email, password=password)
     db.session.add(user)
     db.session.commit()
     return jsonify(user.serialize)
+
  
 @app.route('/login', methods = ['POST'])
 def login():
@@ -73,7 +78,8 @@ def get_quote():
 @app.route('/approval', methods = ['GET'])
 @login_required
 def get_unapproved_quotes():
-    return "123"
+    result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").join(Quote).filter(Quote.active == False).all()
+    return jsonify(result)
 
 @app.route("/quote/<int:id>", methods = ['GET'])
 def get_single_quote(id):
@@ -111,5 +117,9 @@ def post_new_vote(quote_id):
 
 cors = CORS(app)
 if __name__ == "__main__":
+    app.config['SESSION_TYPE'] = 'memcached'
+    app.config['SECRET_KEY'] = 'super secret key'
+    
     app.debug = True    
+    
     app.run()
