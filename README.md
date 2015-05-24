@@ -24,6 +24,11 @@ Accepts application/json
   "value": 1
 }
 ```
+```pip install flask-cors```
+
+```pip install flask-login```
+
+```pip install flask-sqlalchemy```
 
 ### To run
 1. Set up Database URL
