@@ -2,7 +2,8 @@
 
 ### Methods
 
-User admin methods
+**User methods**
+
 POST /register - Registers a new user
 ```
 {
@@ -20,9 +21,10 @@ POST /login - Logs a user in
 }
 ```
 
-GET /logout - Lots a user out
+GET /logout - Logs a user out
 
-Quote methods
+**Quote methods**
+
 GET /quote - Returns list of quote Id by vote count sorted in descending order
 
 POST /quote - Submits a new quote
