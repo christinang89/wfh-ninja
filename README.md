@@ -49,7 +49,7 @@ WFH-ninja is built with a Python-Flask backend, with a React/ JS/ Bootstrap fron
 ###Quote object methods###
 
 #### GET /quote
-*Returns list of Quote Ids and their respective vote count*
+*Returns list of approved/ active Quote Ids and their respective vote count*
 
 Result format:
 
@@ -127,6 +127,16 @@ Result format:
 "ip": "127.0.0.1",
 "text": "quote content",
 "view_count": 2
+}
+```
+
+#### DELETE /quote/[quote_id]/unapprove (Requires login)
+*Deletes Quote of id `quote_id`*
+
+Result format:
+```
+{
+"Success": "Quote has been deleted"
 }
 ```
 
