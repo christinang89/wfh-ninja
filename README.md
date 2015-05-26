@@ -46,6 +46,56 @@ WFH-ninja is built with a Python-Flask backend, with a React/ JS/ Bootstrap fron
 
 ## Documentation
 
+###Quote object methods###
+
+#### GET /quote
+*Returns list of Quote Ids by vote count sorted in descending order*
+
+#### POST /quote
+*Submits a new quote*
+
+Header (application/json):
+
+Name | Type | Description | Required?
+--------| -------| --------------------------| ---------
+text | String | Body/ Content of Quote  | Required 
+conditions | JSON | Additional properties for the quote, e.g. weather conditions, location, etc | Not required 
+
+Example:
+
+```
+{
+  "text" : "Sample quote",
+  "conditions" : { "weather": "sunny" }
+}
+```
+
+#### GET /quote/unapproved (Requires login)
+*Returns list of unapproved quotes*
+
+#### GET /quote/[quote_id]
+*Returns details of Quote of id `quote_id`*
+
+#### PUT /quote/[quote_id]/approve (Requires login)
+*Approves Quote of id `quote_id`*
+* requires login
+
+#### POST /quote/[quote_id]/vote
+*Submits a new vote for Quote of id `quote_id`*
+
+Header (application/json):
+
+Name | Type | Description | Required?
+--------| -------| --------------------------| ---------
+value | Integer | 1 for vote up, -1 for vote down  | Required 
+
+Example:
+```
+{
+  "value": 1
+}
+```
+
 ###User object methods###
 
 #### POST /register
@@ -89,58 +139,3 @@ Example:
 
 #### GET /logout
 *Logs a user out*
-
-
-
-###Quote object methods###
-
-#### GET /quote
-*Returns list of Quote Ids by vote count sorted in descending order*
-
-#### POST /quote
-*Submits a new quote*
-
-Header (application/json):
-
-Name | Type | Description | Required?
---------| -------| --------------------------| ---------
-text | String | Body/ Content of Quote  | Required 
-conditions | JSON | Additional properties for the quote, e.g. weather conditions, location, etc | Not required 
-
-Example:
-
-```
-{
-  "text" : "Sample quote",
-  "conditions" : { "weather": "sunny" }
-}
-```
-
-#### GET /quote/unapproved (Requires login)
-*Returns list of unapproved quotes*
-
-#### GET /quote/[quote_id]
-*Returns details of Quote of id `quote_id`*
-
-#### PUT /quote/[quote_id]/approve
-*Approves Quote of id `quote_id`*
-* requires login
-
-#### POST /quote/[quote_id]/vote
-*Submits a new vote for Quote of id `quote_id`*
-
-Header (application/json):
-
-Name | Type | Description | Required?
---------| -------| --------------------------| ---------
-value | Integer | 1 for vote up, -1 for vote down  | Required 
-
-Example:
-```
-{
-  "value": 1
-}
-```
-
-
-
