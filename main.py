@@ -34,6 +34,7 @@ def before_request():
 def load_user(id):
     return User.query.get(int(id))
 
+# registers user
 @app.route('/register', methods = ['POST'])
 def register():
     body = request.get_json()
@@ -48,7 +49,7 @@ def register():
     db.session.commit()
     return jsonify(user.serialize)
 
- 
+# user login 
 @app.route('/login', methods = ['POST'])
 def login():
     body = request.get_json()
@@ -60,16 +61,19 @@ def login():
     login_user(registered_user)
     return jsonify({"Success": "User is logged in"})
 
+# user logout
 @app.route('/logout', methods = ['GET'])
 def logout():
     logout_user()
     return jsonify({"Success": "User is logged out"})
 
+# get all approved/ active quotes and votecount
 @app.route("/quote", methods = ['GET'])
 def get_quote():
     result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").join(Quote).filter(Quote.active == True).all()
     return jsonify(result)
 
+# submits a new quote
 @app.route("/quote", methods = ['POST'])
 def post_new_quote():
     body = request.get_json()
@@ -87,12 +91,14 @@ def post_new_quote():
 
     return jsonify(quote.serialize)
 
+# get all unapproved/ inactive quotes and votecount
 @app.route("/quote/unapproved", methods = ['GET'])
 @login_required
 def get_unapproved_quotes():
     result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").join(Quote).filter(Quote.active == False).all()
     return jsonify(result)
 
+# gets details of single quote
 @app.route("/quote/<int:id>", methods = ['GET'])
 def get_single_quote(id):
     quote = Quote.query.get(id)
@@ -100,6 +106,7 @@ def get_single_quote(id):
     db.session.commit()
     return jsonify(quote.serialize)
 
+# approves/ activates a single quote
 @app.route("/quote/<int:id>/approve", methods = ['PUT'])
 @login_required
 def approve_quote(id):
@@ -108,10 +115,26 @@ def approve_quote(id):
     db.session.commit()
     return jsonify(quote.serialize)
 
+# deletes a single quote
+@app.route("/quote/<int:id>/unapprove", methods = ['DELETE'])
+@login_required
+def unapprove_quote(id):
+    vote = Vote.query.filter_by(quote_id = id).all()
+    quote = Quote.query.filter_by(id = id).all()
+    if quote == []:
+        return jsonify({"Error":"Quote does not exist"})
+    for v in vote:
+        db.session.delete(v)
+    db.session.commit()
+    for q in quote:
+        db.session.delete(q)
+    db.session.commit()
+    return jsonify({"Success":"Quote has been deleted"})
+
+# submits a new vote for a single quote
 @app.route("/quote/<int:quote_id>/vote", methods = ['POST'])
 def post_new_vote(quote_id):
     body = request.get_json()
-
     vote = Vote(ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), value = body['value'], quote_id = quote_id)
     db.session.add(vote)
     db.session.commit()
