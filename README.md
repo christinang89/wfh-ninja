@@ -2,9 +2,28 @@
 
 ### Methods
 
-GET /quote - Returns list of quote Id by vote count sorted in descending order
+User admin methods
+POST /register - Registers a new user
+```
+{
+  "email": "test@example.com",
+  "password": "12345",
+  "secret": "secret-registration-key"
+}
+```
 
-GET /quote/[id] - Returns details of quote
+POST /login - Logs a user in
+```
+{
+  "email": "test@example.com",
+  "password": "12345"
+}
+```
+
+GET /logout - Lots a user out
+
+Quote methods
+GET /quote - Returns list of quote Id by vote count sorted in descending order
 
 POST /quote - Submits a new quote
 Accepts application/json
@@ -16,14 +35,24 @@ Accepts application/json
 }
 ```
 
-POST /quote/[quote_id]/vote - Submits a new vote for Quote of id quote_id
+GET /quote/unapproved - Returns list of unapproved quotes
+* requires login
 
-Accepts application/json
+GET /quote/[quote_id] - Returns details of quote of id quote_id
+
+PUT /quote/[quote_id]/approve - Approves quote of id quote_id
+* requires login
+
+POST /quote/[quote_id]/vote - Submits a new vote for Quote of id quote_id
 ```
 {
   "value": 1
 }
 ```
+
+### Install requirements
+```pip install Flask```
+
 ```pip install flask-cors```
 
 ```pip install flask-login```
