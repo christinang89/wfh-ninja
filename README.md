@@ -49,7 +49,23 @@ WFH-ninja is built with a Python-Flask backend, with a React/ JS/ Bootstrap fron
 ###Quote object methods###
 
 #### GET /quote
-*Returns list of Quote Ids by vote count sorted in descending order*
+*Returns list of Quote Ids and their respective vote count*
+
+Result format:
+
+```
+{
+"1": 10,
+"4": 12,
+"5": 10,
+"36": 9,
+"38": 7,
+"39": 7,
+"40": 1,
+"41": 1
+}
+```
+
 
 #### POST /quote
 *Submits a new quote*
@@ -71,14 +87,48 @@ Example:
 ```
 
 #### GET /quote/unapproved (Requires login)
-*Returns list of unapproved quotes*
+*Returns list of unapproved quotes and their respective vote count*
+
+Result format:
+```
+{
+"17": 1,
+"37": 1
+}
+```
 
 #### GET /quote/[quote_id]
 *Returns details of Quote of id `quote_id`*
 
+Result format:
+```
+{
+"active": false,
+"conditions": "{}",
+"date_created": "2015-05-17T23:51:26.138167",
+"id": 17,
+"ip": "127.0.0.1",
+"text": "quote content",
+"view_count": 2
+}
+```
+
+
 #### PUT /quote/[quote_id]/approve (Requires login)
 *Approves Quote of id `quote_id`*
-* requires login
+
+Result format:
+```
+{
+"active": true,
+"conditions": "{}",
+"date_created": "2015-05-17T23:51:26.138167",
+"id": 17,
+"ip": "127.0.0.1",
+"text": "quote content",
+"view_count": 2
+}
+```
 
 #### POST /quote/[quote_id]/vote
 *Submits a new vote for Quote of id `quote_id`*
@@ -139,3 +189,10 @@ Example:
 
 #### GET /logout
 *Logs a user out*
+
+Result format:
+```
+{
+"Success": "User is logged out"
+}
+```
