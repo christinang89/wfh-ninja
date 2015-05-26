@@ -30,10 +30,6 @@ login_manager.login_view = 'login'
 def before_request():
     g.user = current_user
 
-@app.route("/")
-def hello():
-    return "Hello World!"
-
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
