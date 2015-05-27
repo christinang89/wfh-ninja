@@ -113,6 +113,15 @@ Result format:
 }
 ```
 
+#### DELETE /quote/[quote_id] (Requires login)
+*Deletes Quote of id `quote_id`*
+
+Result format:
+```
+{
+"Success": "Quote has been deleted"
+}
+```
 
 #### PUT /quote/[quote_id]/approve (Requires login)
 *Approves Quote of id `quote_id`*
@@ -127,16 +136,6 @@ Result format:
 "ip": "127.0.0.1",
 "text": "quote content",
 "view_count": 2
-}
-```
-
-#### DELETE /quote/[quote_id]/unapprove (Requires login)
-*Deletes Quote of id `quote_id`*
-
-Result format:
-```
-{
-"Success": "Quote has been deleted"
 }
 ```
 

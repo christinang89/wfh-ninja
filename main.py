@@ -116,7 +116,7 @@ def approve_quote(id):
     return jsonify(quote.serialize)
 
 # deletes a single quote
-@app.route("/quote/<int:id>/unapprove", methods = ['DELETE'])
+@app.route("/quote/<int:id>", methods = ['DELETE'])
 @login_required
 def unapprove_quote(id):
     vote = Vote.query.filter_by(quote_id = id).all()
