@@ -113,7 +113,7 @@ Result format:
 }
 ```
 
-#### DELETE /quote/[quote_id] (Requires login)
+#### DELETE /quote/`quote_id` (Requires login)
 *Deletes Quote of id `quote_id`*
 
 Result format:
@@ -123,7 +123,7 @@ Result format:
 }
 ```
 
-#### PUT /quote/[quote_id]/approve (Requires login)
+#### PUT /quote/`quote_id`/approve (Requires login)
 *Approves Quote of id `quote_id`*
 
 Result format:
@@ -139,7 +139,7 @@ Result format:
 }
 ```
 
-#### POST /quote/[quote_id]/vote
+#### POST /quote/`quote_id`/vote
 *Submits a new vote for Quote of id `quote_id`*
 
 Header (application/json):
