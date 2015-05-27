@@ -55,14 +55,14 @@ Result format:
 
 ```
 {
-"1": 10,
-"4": 12,
-"5": 10,
-"36": 9,
-"38": 7,
-"39": 7,
-"40": 1,
-"41": 1
+  "1": 10,
+  "4": 12,
+  "5": 10,
+  "36": 9,
+  "38": 7,
+  "39": 7,
+  "40": 1,
+  "41": 1
 }
 ```
 
@@ -92,8 +92,8 @@ Example:
 Result format:
 ```
 {
-"17": 1,
-"37": 1
+  "17": 1,
+  "37": 1
 }
 ```
 
@@ -103,13 +103,13 @@ Result format:
 Result format:
 ```
 {
-"active": false,
-"conditions": "{}",
-"date_created": "2015-05-17T23:51:26.138167",
-"id": 17,
-"ip": "127.0.0.1",
-"text": "quote content",
-"view_count": 2
+  "active": false,
+  "conditions": "{}",
+  "date_created": "2015-05-17T23:51:26.138167",
+  "id": 17,
+  "ip": "127.0.0.1",
+  "text": "quote content",
+  "view_count": 2
 }
 ```
 
@@ -119,7 +119,7 @@ Result format:
 Result format:
 ```
 {
-"Success": "Quote has been deleted"
+  "Success": "Quote has been deleted"
 }
 ```
 
@@ -129,13 +129,13 @@ Result format:
 Result format:
 ```
 {
-"active": true,
-"conditions": "{}",
-"date_created": "2015-05-17T23:51:26.138167",
-"id": 17,
-"ip": "127.0.0.1",
-"text": "quote content",
-"view_count": 2
+  "active": true,
+  "conditions": "{}",
+  "date_created": "2015-05-17T23:51:26.138167",
+  "id": 17,
+  "ip": "127.0.0.1",
+  "text": "quote content",
+  "view_count": 2
 }
 ```
 
@@ -202,6 +202,6 @@ Example:
 Result format:
 ```
 {
-"Success": "User is logged out"
+  "Success": "User is logged out"
 }
 ```
