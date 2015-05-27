@@ -97,7 +97,7 @@ Result format:
 }
 ```
 
-#### GET /quote/[quote_id]
+#### GET /quote/`quote_id`
 *Returns details of Quote of id `quote_id`*
 
 Result format:
