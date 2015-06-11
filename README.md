@@ -15,7 +15,9 @@ WFH-ninja is built with a Python-Flask backend, with a React/ JS/ Bootstrap fron
 
 ## Requirements
 - Flask
-  ```pip install Flask```
+  ```pip install flask```
+- SimpleJson
+  ```pip install simplejson```
 - Flask-CORS
   ```pip install flask-cors```
 - Flask-login
@@ -24,6 +26,8 @@ WFH-ninja is built with a Python-Flask backend, with a React/ JS/ Bootstrap fron
   ```pip install flask-sqlalchemy```
 - Postgresql
   ```brew install postgresql```
+- Psycopg2 (requires postgres)
+  ```pip install psycopg2```
 
 ## To run
 1. Set up Database URL
