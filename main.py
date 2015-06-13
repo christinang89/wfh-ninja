@@ -67,10 +67,11 @@ def logout():
     logout_user()
     return jsonify({"Success": "User is logged out"})
 
-# get all approved/ active quotes and votecount
+# get all quotes and status
 @app.route("/quote", methods = ['GET'])
 def get_quote():
-    result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").join(Quote).filter(Quote.active == True).all()
+    result = db.session.query(Quote.text, Quote.active).all()
+    print result
     return jsonify(result)
 
 # submits a new quote
@@ -90,6 +91,13 @@ def post_new_quote():
     db.session.commit()
 
     return jsonify(quote.serialize)
+
+# get all approved/ active quotes and votecount
+@app.route("/quote/approved", methods = ['GET'])
+def get_approved_quotes():
+    result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").join(Quote).filter(Quote.active == True).all()
+    print result
+    return jsonify(result)
 
 # get all unapproved/ inactive quotes and votecount
 @app.route("/quote/unapproved", methods = ['GET'])

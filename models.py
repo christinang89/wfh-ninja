@@ -24,7 +24,7 @@ class Quote(db.Model):
         self.active = active
 
     def __repr__(self):
-        return json.dumps({"id": self.id, "text": self.text, "conditions": self.conditions, "date_created": self.date_created, "view_count": self.view_count, "ip": self.ip, "active": self.active})
+        return json.dumps({"id": self.id, "text": self.text, "conditions": self.conditions, "date_created": self.date_created.isoformat(), "view_count": self.view_count, "ip": self.ip, "active": self.active})
 
     @property
     def serialize(self):
