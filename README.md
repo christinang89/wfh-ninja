@@ -52,7 +52,7 @@ WFH-ninja is built with a Python-Flask backend, with a React/ JS/ Bootstrap fron
 
 ###Quote object methods###
 
-#### GET /quote
+#### GET /quote (Requires login)
 *Returns list of Quote ids and their respective status*
 
 Result format:
