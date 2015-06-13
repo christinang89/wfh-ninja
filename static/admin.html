@@ -4,8 +4,6 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Need a reason to work from home? Get some of the most effective excuses as voted by the community. WFH.Ninja is the best way to start your day!">
-  <meta name="author" content="">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="stylesheet" href="thirdparty/bootstrap.min.css" type="text/css" />
@@ -22,23 +20,6 @@
       !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";analytics.load("oDsqaDWDVGcrHG4dCPXqXFOPZ0UbQ7DV");analytics.page()}}();
     </script>
 
-    <!-- fb insights-->
-    <meta property="fb:admins" content="576641408" />
-
-    <!--facebook-->
-    <meta property="og:title" content="Generate a reason to Work from Home" />
-    <meta property="og:site_name" content="" ntent="WFH.ninja"/>
-    <meta property="og:url" content="http://wfh.ninja" />
-    <meta property="og:description" content="Need a reason to work from home? Get some of the most effective excuses as voted by the community. WFH.Ninja is the best way to start your day!" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en_US" /> 
-    <meta property="og:image" content="http://wfh.ninja/share.png" />
-
-    <!-- twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@christinang89" />
-    <meta name="twitter:url" content="http://wfh.ninja" />
-
   </head>
   <body>
     <script src="../shared/thirdparty/es5-shim.min.js"></script>
@@ -48,9 +29,43 @@
     <script src="thirdparty/JSXTransformer.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="thirdparty/bootstrap.min.js" charset="utf-8"></script>
+    
     <!-- Application components -->
-    <script type="text/jsx" src="js/quotes.js"></script>
-    <script type="text/jsx" src="js/submit_form.js"></script>
-    <script type="text/jsx" src="js/app.js"></script>
+    <!--<script type="text/jsx" src="js/admintable.js"></script>-->
+    <form>
+      <div class="table-responsive">
+        <table class="table table-bordered table-condensed">
+          <tr>
+          <td><input type="checkbox" onClick="toggleSelect(this)" /> Select All</td>
+            <td>Quote</td>
+            <td>Status</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" name="checkbox" value="quote1"></td>
+            <td>Quote 1</td>
+            <td>Active</td>
+          </tr>
+          <tr class="danger">
+            <td><input type="checkbox" name="checkbox" value="quote2"></td>
+            <td>Quote 2</td>
+            <td>Not Active</td>
+          </tr>
+        </table>
+      </div> 
+      <button type="submit" class="btn btn-warning">Reject</button>
+      <button type="submit" class="btn btn-success">Approve</button>
+      <br /><br />
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+
+    <script language="Javascript">
+      function toggleSelect(source) {
+        checkboxes = document.getElementsByName('checkbox');
+        for(var i=0, n=checkboxes.length;i<n;i++) {
+          checkboxes[i].checked = source.checked;
+        }
+      }
+    </script>
+    
   </body>
   </html>
