@@ -133,12 +133,12 @@ var Quotes = React.createClass({
 			<td>Status</td>
 			</tr>
 			<tr>
-			<td><input type="checkbox" name="checkbox" value="quote1"></td>
+			<td><input type="checkbox" name="checkbox" value="quote1" /></td>
 			<td>{this.state.quoteText}</td>
 			<td>Active</td>
 			</tr>
 			<tr class="danger">
-			<td><input type="checkbox" name="checkbox" value="quote2"></td>
+			<td><input type="checkbox" name="checkbox" value="quote2" /></td>
 			<td>Quote 2</td>
 			<td>Not Active</td>
 			</tr>
