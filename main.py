@@ -24,8 +24,6 @@ login_manager.init_app(app)
 
 login_manager.login_view = 'login'
 
-
-
 @app.before_request
 def before_request():
     g.user = current_user
@@ -67,12 +65,25 @@ def logout():
     logout_user()
     return jsonify({"Success": "User is logged out"})
 
-# get all quotes and status
+# get quotes
 @app.route("/quote", methods = ['GET'])
-@login_required
 def get_quote():
-    result = db.session.query(Quote.id, Quote.active).all()
-    return jsonify(result)
+    results = {}
+    if current_user.is_authenticated() is True and request.args and request.args['all'] == "true":
+        result = Quote.query.all()
+        for item in result:
+            results[item.id] = item.serialize
+    else:
+        # if user is not authenticated, return only quotes that are approved
+        result = Quote.query.filter(Quote.active==True).all()
+        for item in result:
+            results[item.id] = item.serialize
+    scores = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).join(Quote).filter(Quote.id.in_(results.keys())).all()
+
+    for i in scores:
+        results[i[0]]["score"] = i[1]
+
+    return jsonify(results)
 
 # submits a new quote
 @app.route("/quote", methods = ['POST'])
@@ -91,19 +102,6 @@ def post_new_quote():
     db.session.commit()
 
     return jsonify(quote.serialize)
-
-# get all approved/ active quotes and votecount
-@app.route("/quote/approved", methods = ['GET'])
-def get_approved_quotes():
-    result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").join(Quote).filter(Quote.active == True).all()
-    return jsonify(result)
-
-# get all unapproved/ inactive quotes and votecount
-@app.route("/quote/unapproved", methods = ['GET'])
-@login_required
-def get_unapproved_quotes():
-    result = db.session.query(Vote.quote_id, db.func.sum(Vote.value).label("score")).group_by(Vote.quote_id).order_by("score DESC").join(Quote).filter(Quote.active == False).all()
-    return jsonify(result)
 
 # gets details of single quote
 @app.route("/quote/<int:id>", methods = ['GET'])
