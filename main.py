@@ -115,10 +115,19 @@ def approve_quote(id):
     db.session.commit()
     return jsonify(quote.serialize)
 
+# unapproves/ rejects a single quote
+@app.route("/quote/<int:id>/reject", methods = ['PUT'])
+@login_required
+def reject_quote(id):
+    quote = Quote.query.get(id)
+    quote.active = False
+    db.session.commit()
+    return jsonify(quote.serialize)
+
 # deletes a single quote
 @app.route("/quote/<int:id>", methods = ['DELETE'])
 @login_required
-def unapprove_quote(id):
+def delete_quote(id):
     vote = Vote.query.filter_by(quote_id = id).all()
     quote = Quote.query.filter_by(id = id).all()
     if quote == []:
