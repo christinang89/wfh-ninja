@@ -52,24 +52,65 @@ WFH-ninja is built with a Python-Flask backend, with a React/ JS/ Bootstrap fron
 
 ###Quote object methods###
 
-#### GET /quote (Requires login)
-*Returns list of Quote ids and their respective status*
+#### GET /quote (not logged in)
+*Returns list of active Quote ids and their details*
 
 Result format:
 
 ```
 {
-  "1": true,
-  "4": false,
-  "5": true,
-  "36": false,
-  "38": true,
-  "39": true,
-  "40": false,
-  "41": false
+   "1": {
+    "active": true,
+    "conditions": "{}",
+    "date_created": "2015-05-17T22:25:59.911361",
+    "id": 1,
+    "ip": 127.0.0.1,
+    "score": 14,
+    "text": "Quote 1",
+    "view_count": 68
+  },
+  "10": {
+    "active": true,
+    "conditions": "{}",
+    "date_created": "2015-05-17T23:02:27.596582",
+    "id": 10,
+    "ip": "127.0.0.1",
+    "score": 4,
+    "text": "Quote 2",
+    "view_count": 13
+  }
 }
 ```
 
+#### GET /quote?all=true (requires logged in)
+*Returns list of all Quote ids and their details*
+
+Result format:
+
+```
+{
+   "1": {
+    "active": true,
+    "conditions": "{}",
+    "date_created": "2015-05-17T22:25:59.911361",
+    "id": 1,
+    "ip": 127.0.0.1,
+    "score": 14,
+    "text": "Quote 1",
+    "view_count": 68
+  },
+  "13": {
+    "active": false,
+    "conditions": "{}",
+    "date_created": "2015-05-18T23:02:27.596582",
+    "id": 13,
+    "ip": "127.0.0.1",
+    "score": 4,
+    "text": "Quote 3",
+    "view_count": 15
+  }
+}
+```
 
 #### POST /quote
 *Submits a new quote*
@@ -87,35 +128,6 @@ Example:
 {
   "text" : "Sample quote",
   "conditions" : { "weather": "sunny" }
-}
-```
-
-#### GET /quote/approved
-*Returns list of approved/ active Quote Ids and their respective vote count*
-
-Result format:
-
-```
-{
-  "1": 10,
-  "4": 12,
-  "5": 10,
-  "36": 9,
-  "38": 7,
-  "39": 7,
-  "40": 1,
-  "41": 1
-}
-```
-
-#### GET /quote/unapproved (Requires login)
-*Returns list of unapproved quotes and their respective vote count*
-
-Result format:
-```
-{
-  "17": 1,
-  "37": 1
 }
 ```
 
