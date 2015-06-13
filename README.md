@@ -53,20 +53,20 @@ WFH-ninja is built with a Python-Flask backend, with a React/ JS/ Bootstrap fron
 ###Quote object methods###
 
 #### GET /quote
-*Returns list of approved/ active Quote Ids and their respective vote count*
+*Returns list of Quote ids and their respective status*
 
 Result format:
 
 ```
 {
-  "1": 10,
-  "4": 12,
-  "5": 10,
-  "36": 9,
-  "38": 7,
-  "39": 7,
-  "40": 1,
-  "41": 1
+  "1": true,
+  "4": false,
+  "5": true,
+  "36": false,
+  "38": true,
+  "39": true,
+  "40": false,
+  "41": false
 }
 ```
 
@@ -87,6 +87,24 @@ Example:
 {
   "text" : "Sample quote",
   "conditions" : { "weather": "sunny" }
+}
+```
+
+#### GET /quote/approved
+*Returns list of approved/ active Quote Ids and their respective vote count*
+
+Result format:
+
+```
+{
+  "1": 10,
+  "4": 12,
+  "5": 10,
+  "36": 9,
+  "38": 7,
+  "39": 7,
+  "40": 1,
+  "41": 1
 }
 ```
 

@@ -71,7 +71,7 @@ def logout():
 @app.route("/quote", methods = ['GET'])
 @login_required
 def get_quote():
-    result = db.session.query(Quote.text, Quote.active).all()
+    result = db.session.query(Quote.id, Quote.active).all()
     return jsonify(result)
 
 # submits a new quote
