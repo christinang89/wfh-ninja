@@ -143,6 +143,22 @@ Result format:
 }
 ```
 
+#### PUT /quote/`quote_id`/reject (Requires login)
+*Rejects Quote of id `quote_id`*
+
+Result format:
+```
+{
+  "active": false,
+  "conditions": "{}",
+  "date_created": "2015-05-17T23:51:26.138167",
+  "id": 17,
+  "ip": "127.0.0.1",
+  "text": "quote content",
+  "view_count": 2
+}
+```
+
 #### POST /quote/`quote_id`/vote
 *Submits a new vote for Quote of id `quote_id`*
 
