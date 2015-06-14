@@ -30,14 +30,16 @@ var AdminMain = React.createClass({
       		var renderedRows = [];
       		Object.keys(result).forEach(function(key) {
 				var quote = result[key];
+				var date = new Date(quote.date_created);
+    			var formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 				var quoteRow = (
-					<div>
+					<div className="row">
 					<div className="col-md-2"></div>
 					<div className="col-md-1"><input type="checkbox" name="checkbox" id={quote.id} value={quote.id} /></div>
 					<div className="col-md-3">{quote.text}</div>
-					<div className="col-md-2">{quote.active ? "Active" : "Inactive"}</div>
-					<div className="col-md-3">{quote.date_created}</div>
-					<div className="col-md-1"></div>
+					<div className="col-md-1">{quote.active ? "Active" : "Inactive"}</div>
+					<div className="col-md-3">{formattedDate}</div>
+					<div className="col-md-2"></div>
 					</div>
 					);
 				renderedRows.push(quoteRow);
@@ -118,20 +120,21 @@ var AdminMain = React.createClass({
 			<div className="site-wrapper-inner">
 			<div className="cover-container">
 			<form className="inner cover">
+			<div className="row">
 			<div className="col-md-2"></div>
 			<div className="col-md-1"><input type="checkbox" onClick={this.selectAll} /> Select All</div>
 			<div className="col-md-3">Quote</div>
-			<div className="col-md-2">Status</div>
+			<div className="col-md-1">Status</div>
 			<div className="col-md-3">Date created</div>
-			<div className="col-md-1"></div>
+			<div className="col-md-2"></div>
+			</div>
 
-				
-						{this.state.renderedRows}
+			{this.state.renderedRows}
 
-				<FormButton onClick={this.reject()} className="btn btn-lg btn-warning form-button">Reject</FormButton>
-				<FormButton onClick={this.approve()} className="btn btn-lg btn-success form-button">Approve</FormButton>
+				<FormButton onClick={this.reject()} className="btn btn-warning form-button">Reject</FormButton>
+				<FormButton onClick={this.approve()} className="btn btn-success form-button">Approve</FormButton>
 				<br />
-				<FormButton onClick={this.delete()} className="btn btn-lg btn-danger form-button">Delete</FormButton>
+				<FormButton onClick={this.delete()} className="btn btn-danger form-button">Delete</FormButton>
 			</form>
 			</div>
 			</div>
