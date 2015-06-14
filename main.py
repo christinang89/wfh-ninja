@@ -83,7 +83,7 @@ def render_admin():
 @app.route('/logout', methods = ['GET'])
 def logout():
     logout_user()
-    return jsonify({"Success": "User is logged out"})
+    return redirect("/login", code=302)
 
 # get quotes
 @app.route("/quote", methods = ['GET'])

@@ -28,6 +28,10 @@ a:hover {
   text-align: left;
 }
 
+.table-header{
+  font-size: 18px;
+}
+
 /*
  * Base structure
  */
@@ -189,6 +193,16 @@ h1 {
   color: #999; /* IE8 proofing */
   color: rgba(255,255,255,.5);
   font-size: 12px;
+}
+
+.ack {
+  margin-right: auto;
+  margin-left: auto;
+  bottom: 1.5vw;
+  vertical-align: middle;
+  width:100%;
+  max-width: 600px;
+  margin: auto;
 }
 
 /*

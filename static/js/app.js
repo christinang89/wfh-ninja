@@ -32,6 +32,7 @@ var Main = React.createClass({
         </a>
         <Quotes />
         <SubmitForm />
+        <p className="ack">Original <a href="http://getbootstrap.com/examples/cover/" target="_blank">Cover</a> template for <a href="http://getbootstrap.com" target="_blank">Bootstrap</a> created by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
         <div className="mastfoot clearfix">
           <div className="inner">                
             <nav>
@@ -43,6 +44,8 @@ var Main = React.createClass({
             </nav>
           </div>
         </div>
+
+
       </div>
     );
   }

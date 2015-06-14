@@ -116,29 +116,61 @@ var AdminMain = React.createClass({
 		}
 	},
 
+	logOut: function() {
+		return function() {		
+			$.ajax({
+				type: 'GET',
+				url: "/logout",
+				contentType: "application/json; charset=utf-8",
+			});
+		}.bind(this);
+	},
+
+
+
 	render: function() {
 		return (
+			<div className="site-wrapper">
 			<div className="site-wrapper-inner">
 			<div className="cover-container">
 			<div className="inner cover">
+			<h1>Admin Panel</h1>
+
 			<form>
 			<div className="container-fluid row quoteText">
 			<div className="col-md-2 col-xs-1"></div>
-			<div className="col-md-1 col-xs-1"><input type="checkbox" onClick={this.selectAll} /></div>
-			<div className="col-md-3 col-xs-3">Quote</div>
-			<div className="col-md-1 col-xs-2">Status</div>
-			<div className="col-md-2 col-xs-3">Date created</div>
-			<div className="col-md-1 col-xs-1">Score</div>
+			<div className="col-md-10 col-xs-11"><input type="checkbox" onClick={this.selectAll} /> Select All</div>
+			</div>
+			<div className="container-fluid row quoteText">
+			<div className="col-md-2 col-xs-1"></div>
+			<div className="col-md-1 col-xs-1"></div>
+			<div className="col-md-3 col-xs-3 table-header">Quote</div>
+			<div className="col-md-1 col-xs-2 table-header">Status</div>
+			<div className="col-md-2 col-xs-3 table-header">Date created</div>
+			<div className="col-md-1 col-xs-1 table-header">Score</div>
 			<div className="col-md-2 col-xs-1"></div>
 			</div>
 
 			{this.state.renderedRows}
 
+			<p className="lead">
 				<FormButton onClick={this.reject()} className="btn btn-warning form-button">Reject</FormButton>
 				<FormButton onClick={this.approve()} className="btn btn-success form-button">Approve</FormButton>
 				<br />
 				<FormButton onClick={this.delete()} className="btn btn-danger form-button">Delete</FormButton>
+				</p>
 			</form>
+			<div className="mastfoot clearfix">
+          <div className="inner">                
+            <nav>
+              <ul className="nav mastfoot-nav">
+                <li><a href="/">Back to App</a></li>
+                <li><a href="/logout">Logout</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+			</div>
 			</div>
 			</div>
 			</div>
