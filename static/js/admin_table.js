@@ -31,12 +31,15 @@ var AdminMain = React.createClass({
       		Object.keys(result).forEach(function(key) {
 				var quote = result[key];
 				var quoteRow = (
-					<tr>
-						<td><input type="checkbox" name="checkbox" id={quote.id} value={quote.id} /></td>
-						<td>{quote.text}</td>
-						<td>{quote.active ? "Active" : "Inactive"}</td>
-						<td>{quote.date_created}</td>
-					</tr>);
+					<div>
+					<div className="col-md-2"></div>
+					<div className="col-md-1"><input type="checkbox" name="checkbox" id={quote.id} value={quote.id} /></div>
+					<div className="col-md-3">{quote.text}</div>
+					<div className="col-md-2">{quote.active ? "Active" : "Inactive"}</div>
+					<div className="col-md-3">{quote.date_created}</div>
+					<div className="col-md-1"></div>
+					</div>
+					);
 				renderedRows.push(quoteRow);
 			});
 			this.setState({ renderedRows: renderedRows });
@@ -114,19 +117,16 @@ var AdminMain = React.createClass({
 		return (
 			<div className="site-wrapper-inner">
 			<div className="cover-container">
-			<form  className="inner cover">
-			
+			<form className="inner cover">
+			<div className="col-md-2"></div>
+			<div className="col-md-1"><input type="checkbox" onClick={this.selectAll} /> Select All</div>
+			<div className="col-md-3">Quote</div>
+			<div className="col-md-2">Status</div>
+			<div className="col-md-3">Date created</div>
+			<div className="col-md-1"></div>
 
-				<div class="table-responsive">
-					<table class="table table-bordered table-condensed">
-						<tr>
-							<td><input type="checkbox" onClick={this.selectAll} /> Select All</td>
-							<td>Quote</td>
-							<td>Status</td>
-						</tr>
+				
 						{this.state.renderedRows}
-					</table>
-				</div> 
 
 				<FormButton onClick={this.reject()} className="btn btn-lg btn-warning form-button">Reject</FormButton>
 				<FormButton onClick={this.approve()} className="btn btn-lg btn-success form-button">Approve</FormButton>

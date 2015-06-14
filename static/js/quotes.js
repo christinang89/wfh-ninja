@@ -22,7 +22,7 @@ var Quotes = React.createClass({
     var twitter_script = document.createElement('script');
     twitter_script.textContent = "!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');";
     document.body.appendChild(twitter_script);
-    $.get("http://wfh.ninja/api/quote", function(result) {
+    $.get("/quote", function(result) {
       if (this.isMounted()) {
         var quoteIds = _.keys(result);
         quoteIds = _.sample(quoteIds, quoteIds.length);
@@ -81,7 +81,7 @@ var Quotes = React.createClass({
       }
       $.ajax({
         type: 'POST',
-        url: "http://wfh.ninja/api/quote/" + quoteId + '/vote',
+        url: "/quote/" + quoteId + '/vote',
         data: JSON.stringify({ value: value }),
         contentType: "application/json; charset=utf-8",
         success: function(result) { this.loadNextQuote(); }.bind(this)
