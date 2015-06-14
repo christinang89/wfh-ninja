@@ -24,29 +24,31 @@ var AdminMain = React.createClass({
 
 	loadQuotes: function() {
 		$.get("/quote?all=true", function(result) {
-      		this.setState({
-      			quotes: result
-      		});
-      		var renderedRows = [];
-      		Object.keys(result).forEach(function(key) {
+			this.setState({
+				quotes: result
+			});
+			var renderedRows = [];
+			Object.keys(result).forEach(function(key) {
 				var quote = result[key];
 				var date = new Date(quote.date_created);
-    			var formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+				var formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 				var quoteRow = (
-					<div className="container-fluid row quoteText">
-					<div className="col-md-2 col-xs-1"></div>
-					<div className="col-md-1 col-xs-1"><input type="checkbox" name="checkbox" id={quote.id} value={quote.id} /></div>
-					<div className="col-md-3 col-xs-3">{quote.text}</div>
-					<div className="col-md-1 col-xs-2">{quote.active ? "Active" : "Inactive"}</div>
-					<div className="col-md-2 col-xs-3">{formattedDate}</div>
-					<div className="col-md-1 col-xs-1">{quote.score}</div>
-					<div className="col-md-2 col-xs-1"></div>
-					</div>
+					
+					
+					<tr>
+					<td className="checkbox-align"><input type="checkbox" name="checkbox" id={quote.id} value={quote.id} /></td>
+					<td>{quote.text}</td>
+					<td>{quote.active ? "Active" : "Inactive"}</td>
+					<td>{formattedDate}</td>
+					<td>{quote.score}</td>
+					</tr>
+					
+					
 					);
 				renderedRows.push(quoteRow);
 			});
 			this.setState({ renderedRows: renderedRows });
-    	}.bind(this));  	
+		}.bind(this));  	
 	},
 
 	approve: function() {
@@ -102,7 +104,7 @@ var AdminMain = React.createClass({
 						contentType: "application/json; charset=utf-8",
 						async: false
 					});
-				checkboxes[i].checked = false;	
+					checkboxes[i].checked = false;	
 				}
 			}
 			this.loadQuotes();
@@ -134,49 +136,41 @@ var AdminMain = React.createClass({
 			<div className="site-wrapper-inner">
 			<div className="cover-container">
 			<div className="inner cover">
+			<div className="logout">
+			<a href="/logout">Logout</a>
+			</div>
 			<h1>Admin Panel</h1>
 
 			<form>
-			<div className="container-fluid row quoteText">
-			<div className="col-md-2 col-xs-1"></div>
-			<div className="col-md-10 col-xs-11"><input type="checkbox" onClick={this.selectAll} /> Select All</div>
-			</div>
-			<div className="container-fluid row quoteText">
-			<div className="col-md-2 col-xs-1"></div>
-			<div className="col-md-1 col-xs-1"></div>
-			<div className="col-md-3 col-xs-3 table-header">Quote</div>
-			<div className="col-md-1 col-xs-2 table-header">Status</div>
-			<div className="col-md-2 col-xs-3 table-header">Date created</div>
-			<div className="col-md-1 col-xs-1 table-header">Score</div>
-			<div className="col-md-2 col-xs-1"></div>
-			</div>
-
+			<div className="table-responsive">
+			<table className="table table-bordered">
+			<tr className="table-header">
+			<td className="checkbox-align"><input type="checkbox" onClick={this.selectAll} /></td>
+			<td>Quote</td>
+			<td>Status</td>
+			<td>Date Created</td>
+			<td>Score</td>
+			</tr>
+			
 			{this.state.renderedRows}
-
-			<p className="lead">
-				<FormButton onClick={this.reject()} className="btn btn-warning form-button">Reject</FormButton>
-				<FormButton onClick={this.approve()} className="btn btn-success form-button">Approve</FormButton>
-				<br />
-				<FormButton onClick={this.delete()} className="btn btn-danger form-button">Delete</FormButton>
-				</p>
+			</table>
+			</div>
+			
+			<div className="admin-buttons">
+			<FormButton onClick={this.reject()} className="btn btn-warning btn-lg form-button">Reject</FormButton>
+			<FormButton onClick={this.approve()} className="btn btn-success btn-lg form-button">Approve</FormButton>
+			<br />
+			<FormButton onClick={this.delete()} className="btn btn-danger btn-sm form-button">Delete</FormButton>
+			</div>
 			</form>
-			<div className="mastfoot clearfix">
-          <div className="inner">                
-            <nav>
-              <ul className="nav mastfoot-nav">
-                <li><a href="/">Back to App</a></li>
-                <li><a href="/logout">Logout</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
+
 			</div>
 			</div>
 			</div>
 			</div>
 
 			);
-	}
+}
 });
 
 
