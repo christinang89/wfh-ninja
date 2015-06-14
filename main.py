@@ -52,6 +52,11 @@ def render_login():
     return app.send_static_file('login.html')
 
 
+@app.route('/', methods=['GET'])
+def render_index():
+    return app.send_static_file('index.html')
+
+
 # user login 
 @app.route('/login', methods = ['POST'])
 def login():
@@ -103,7 +108,9 @@ def get_quote():
 # submits a new quote
 @app.route("/quote", methods = ['POST'])
 def post_new_quote():
+
     body = request.get_json()
+    
     conditions = {}
     if "conditions" in body:
         conditions = body['conditions']

@@ -38,7 +38,7 @@ var Quotes = React.createClass({
   },
   
   forceQuote: function(quoteId) {
-    $.get("http://wfh.ninja/api/quote/" + quoteId, function(result) {
+    $.get("/quote/" + quoteId, function(result) {
       if (this.isMounted()) {
         this.setState({
           quoteText: result.text,
@@ -61,7 +61,7 @@ var Quotes = React.createClass({
 
     var quoteId = this.state.quotes[this.state.index + 1];
 
-    $.get("http://wfh.ninja/api/quote/" + quoteId, function(result) {
+    $.get("/quote/" + quoteId, function(result) {
       if (this.isMounted()) {
         this.setState({
           quoteText: result.text,

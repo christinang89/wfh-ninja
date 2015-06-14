@@ -15,7 +15,7 @@ class Quote(db.Model):
     ip = db.Column(db.String(15))
     active = db.Column(db.Boolean)
 
-    def __init__(self, text, conditions, date_created, view_count, ip, active):
+    def __init__(self, text, conditions, view_count, ip, active):
         self.text = text
         self.conditions = conditions
         self.date_created = datetime.datetime.utcnow()
@@ -38,7 +38,7 @@ class Vote(db.Model):
     date_created = db.Column(db.DateTime)
     quote_id = db.Column(db.Integer, db.ForeignKey('quote.id'))
 
-    def __init__(self, ip, value, date_created, quote_id):
+    def __init__(self, ip, value, quote_id):
         self.ip = ip
         self.value = value
         self.date_created = datetime.datetime.utcnow()

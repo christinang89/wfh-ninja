@@ -29,7 +29,7 @@ var SubmitForm = React.createClass({
     $('button').prop('disabled', true);
     $.ajax({
       type: 'POST',
-      url: "http://wfh.ninja/api/quote",
+      url: "/quote",
       data: JSON.stringify({ text: this.state.quoteText }),
       contentType: "application/json; charset=utf-8",
       success: function(result) { 
