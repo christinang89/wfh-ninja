@@ -35,6 +35,7 @@ var AdminMain = React.createClass({
 						<td><input type="checkbox" name="checkbox" id={quote.id} value={quote.id} /></td>
 						<td>{quote.text}</td>
 						<td>{quote.active ? "Active" : "Inactive"}</td>
+						<td>{quote.date_created}</td>
 					</tr>);
 				renderedRows.push(quoteRow);
 			});
@@ -114,6 +115,7 @@ var AdminMain = React.createClass({
 			<div className="site-wrapper-inner">
 			<div className="cover-container">
 			<form  className="inner cover">
+			
 
 				<div class="table-responsive">
 					<table class="table table-bordered table-condensed">
