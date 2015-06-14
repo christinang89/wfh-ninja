@@ -24,6 +24,9 @@ a:hover {
   border: 1px solid #fff;
 }
 
+.quoteText {
+  text-align: left;
+}
 
 /*
  * Base structure

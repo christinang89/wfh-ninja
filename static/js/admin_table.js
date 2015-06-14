@@ -33,13 +33,14 @@ var AdminMain = React.createClass({
 				var date = new Date(quote.date_created);
     			var formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 				var quoteRow = (
-					<div className="row">
-					<div className="col-md-2"></div>
-					<div className="col-md-1"><input type="checkbox" name="checkbox" id={quote.id} value={quote.id} /></div>
-					<div className="col-md-3">{quote.text}</div>
-					<div className="col-md-1">{quote.active ? "Active" : "Inactive"}</div>
-					<div className="col-md-3">{formattedDate}</div>
-					<div className="col-md-2"></div>
+					<div className="container-fluid row quoteText">
+					<div className="col-md-2 col-xs-1"></div>
+					<div className="col-md-1 col-xs-1"><input type="checkbox" name="checkbox" id={quote.id} value={quote.id} /></div>
+					<div className="col-md-3 col-xs-3">{quote.text}</div>
+					<div className="col-md-1 col-xs-2">{quote.active ? "Active" : "Inactive"}</div>
+					<div className="col-md-2 col-xs-3">{formattedDate}</div>
+					<div className="col-md-1 col-xs-1">{quote.score}</div>
+					<div className="col-md-2 col-xs-1"></div>
 					</div>
 					);
 				renderedRows.push(quoteRow);
@@ -119,14 +120,16 @@ var AdminMain = React.createClass({
 		return (
 			<div className="site-wrapper-inner">
 			<div className="cover-container">
-			<form className="inner cover">
-			<div className="row">
-			<div className="col-md-2"></div>
-			<div className="col-md-1"><input type="checkbox" onClick={this.selectAll} /> Select All</div>
-			<div className="col-md-3">Quote</div>
-			<div className="col-md-1">Status</div>
-			<div className="col-md-3">Date created</div>
-			<div className="col-md-2"></div>
+			<div className="inner cover">
+			<form>
+			<div className="container-fluid row quoteText">
+			<div className="col-md-2 col-xs-1"></div>
+			<div className="col-md-1 col-xs-1"><input type="checkbox" onClick={this.selectAll} /></div>
+			<div className="col-md-3 col-xs-3">Quote</div>
+			<div className="col-md-1 col-xs-2">Status</div>
+			<div className="col-md-2 col-xs-3">Date created</div>
+			<div className="col-md-1 col-xs-1">Score</div>
+			<div className="col-md-2 col-xs-1"></div>
 			</div>
 
 			{this.state.renderedRows}
@@ -136,6 +139,7 @@ var AdminMain = React.createClass({
 				<br />
 				<FormButton onClick={this.delete()} className="btn btn-danger form-button">Delete</FormButton>
 			</form>
+			</div>
 			</div>
 			</div>
 
