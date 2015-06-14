@@ -23,7 +23,7 @@ var AdminMain = React.createClass({
 	},
 
 	loadQuotes: function() {
-		$.get("http://wfh.ninja/api/quote?all=true", function(result) {
+		$.get("/quote?all=true", function(result) {
       		this.setState({
       			quotes: result
       		});
@@ -50,10 +50,11 @@ var AdminMain = React.createClass({
 					// approve it
 					$.ajax({
 						type: 'PUT',
-						url: "http://wfh.ninja/api/quote/" + checkboxes[i].id + '/approve',
+						url: "/quote/" + checkboxes[i].id + '/approve',
 						contentType: "application/json; charset=utf-8",
 						async: false
 					});
+					checkboxes[i].checked = false;
 					
 				}
 			}
@@ -69,12 +70,13 @@ var AdminMain = React.createClass({
 					// approve it
 					$.ajax({
 						type: 'PUT',
-						url: "http://wfh.ninja/api/quote/" + checkboxes[i].id + '/reject',
+						url: "/quote/" + checkboxes[i].id + '/reject',
 						contentType: "application/json; charset=utf-8",
 						async: false
 					});
 					
 				}
+				checkboxes[i].checked = false;
 			}
 			this.loadQuotes();
 		}.bind(this);
@@ -89,11 +91,11 @@ var AdminMain = React.createClass({
 					// approve it
 					$.ajax({
 						type: 'DELETE',
-						url: "http://wfh.ninja/api/quote/" + checkboxes[i].id,
+						url: "/quote/" + checkboxes[i].id,
 						contentType: "application/json; charset=utf-8",
 						async: false
 					});
-					
+				checkboxes[i].checked = false;	
 				}
 			}
 			this.loadQuotes();
@@ -112,6 +114,7 @@ var AdminMain = React.createClass({
 			<div className="site-wrapper-inner">
 			<div className="cover-container">
 			<form  className="inner cover">
+
 				<div class="table-responsive">
 					<table class="table table-bordered table-condensed">
 						<tr>

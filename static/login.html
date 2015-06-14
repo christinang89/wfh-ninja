@@ -10,7 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.8.0/lodash.min.js"></script>
   <title>Reasons to work from home</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link href="css/cover.css" rel="stylesheet">
+  <link href="/static/css/cover.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -28,12 +28,12 @@
         <div class="cover-container">
           <div class="inner cover">
             <h1>Enter login details:</h1>
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="http://localhost:5000/login" method="post">
               <div class="form-group">
                 <div class="col-md-3"></div>
                 <label class="col-md-2 control-label" for="userEmail">Email address: </label>
                 <div class="col-md-3">
-                  <input type="email" class="form-control" placeholder="Enter email" id="userEmail" />
+                  <input type="email" class="form-control" placeholder="Enter email" id="email" name="email" />
                 </div>
                 <div class="col-md-4"></div>
               </div>
@@ -42,7 +42,7 @@
                 <div class="col-md-3"></div>
                 <label class="col-md-2 control-label" for="userPassword">Password: </label>
                 <div class="col-md-3">
-                  <input type="password" class="form-control" placeholder="Password" id="userPassword"/>
+                  <input type="password" class="form-control" placeholder="Password" id="password" name="password" />
                 </div>
               </div>
               <div class="col-md-4"></div>

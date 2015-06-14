@@ -47,17 +47,32 @@ def register():
     db.session.commit()
     return jsonify(user.serialize)
 
+@app.route('/login', methods=['GET'])
+def render_login():
+    return app.send_static_file('login.html')
+
+
 # user login 
 @app.route('/login', methods = ['POST'])
 def login():
     body = request.get_json()
-    email = body['email']
-    password = body['password']
+    if body:
+        email = body['email']
+        password = body['password']
+    else:
+        email = request.form.get('email')
+        password = request.form.get('password')
     registered_user = User.query.filter_by(email=email,password=password).first()
     if registered_user is None:
         return jsonify({"Error": "Email or Password invalid"})
     login_user(registered_user)
-    return jsonify({"Success": "User is logged in"})
+    return redirect("/admin", code=302)
+
+@app.route('/admin', methods=['GET'])
+def render_admin():
+    if current_user.is_authenticated() is False:
+        return redirect("/login", code=302)
+    return app.send_static_file('admin.html')
 
 # user logout
 @app.route('/logout', methods = ['GET'])
