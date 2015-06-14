@@ -9,7 +9,7 @@ var FormButton = React.createClass({
 	}
 });
 
-var Quotes = React.createClass({
+var AdminMain = React.createClass({
 	getInitialState: function() {
 		return {
 			quoteText: '',
@@ -19,105 +19,92 @@ var Quotes = React.createClass({
 	},
 
 	componentDidMount: function() {
-		var twitter_script = document.createElement('script');
-		twitter_script.textContent = "!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');";
-		document.body.appendChild(twitter_script);
-		$.get("http://wfh.ninja/api/quote", function(result) {
-			if (this.isMounted()) {
-				var quoteIds = _.keys(result);
-				quoteIds = _.sample(quoteIds, quoteIds.length);
-
-				this.setState({
-					quotes: quoteIds
-				});
-
-				this.loadNextQuote();
-			}
-		}.bind(this));
-		window.forceQuote = this.forceQuote;
+		this.loadQuotes();
 	},
 
-	forceQuote: function(quoteId) {
-		$.get("http://wfh.ninja/api/quote/" + quoteId, function(result) {
-			if (this.isMounted()) {
-				this.setState({
-					quoteText: result.text,
-          index: this.state.quotes.length // force invalid index to restart it again
-      });
-				$('.form-button').attr('disabled', false);
-			}
-		}.bind(this));
-	},
-
-	loadNextQuote: function() {
-		if (this.state.index >= (this.state.quotes.length - 1)) {
-			quoteIds = _.sample(this.state.quotes, this.state.quotes.length);
-			this.setState({
-				index: -1,
-				quotes: quoteIds
+	loadQuotes: function() {
+		$.get("http://wfh.ninja/api/quote?all=true", function(result) {
+      		this.setState({
+      			quotes: result
+      		});
+      		var renderedRows = [];
+      		Object.keys(result).forEach(function(key) {
+				var quote = result[key];
+				var quoteRow = (
+					<tr>
+						<td><input type="checkbox" name="checkbox" id={quote.id} value={quote.id} /></td>
+						<td>{quote.text}</td>
+						<td>{quote.active ? "Active" : "Inactive"}</td>
+					</tr>);
+				renderedRows.push(quoteRow);
 			});
-			this.state.index = -1;
-		}
-
-		var quoteId = this.state.quotes[this.state.index + 1];
-
-		$.get("http://wfh.ninja/api/quote/" + quoteId, function(result) {
-			if (this.isMounted()) {
-				this.setState({
-					quoteText: result.text,
-					index: this.state.index + 1
-				});
-				$('.form-button').attr('disabled', false);
-			}
-		}.bind(this));
+			this.setState({ renderedRows: renderedRows });
+    	}.bind(this));  	
 	},
 
 	approve: function() {
 		return function() {
-			$('.form-button').attr('disabled', true);
-			var quoteId = this.state.quotes[this.state.index];
-			if (!quoteId) {
-				return this.loadNextQuote();
+			checkboxes = document.getElementsByName('checkbox');
+			for(var i=0, n=checkboxes.length;i<n;i++) {
+				if (checkboxes[i].checked) {
+					// approve it
+					$.ajax({
+						type: 'PUT',
+						url: "http://wfh.ninja/api/quote/" + checkboxes[i].id + '/approve',
+						contentType: "application/json; charset=utf-8",
+						async: false
+					});
+					
+				}
 			}
-			$.ajax({
-				type: 'PUT',
-				url: "http://wfh.ninja/api/quote/" + quoteId + '/approve',
-				contentType: "application/json; charset=utf-8",
-				success: function(result) { this.loadNextQuote(); }.bind(this)
-			});
+			this.loadQuotes();
 		}.bind(this);
 	},
 
 	reject: function() {
 		return function() {
-			$('.form-button').attr('disabled', true);
-			var quoteId = this.state.quotes[this.state.index];
-			if (!quoteId) {
-				return this.loadNextQuote();
+			checkboxes = document.getElementsByName('checkbox');
+			for(var i=0, n=checkboxes.length;i<n;i++) {
+				if (checkboxes[i].checked) {
+					// approve it
+					$.ajax({
+						type: 'PUT',
+						url: "http://wfh.ninja/api/quote/" + checkboxes[i].id + '/reject',
+						contentType: "application/json; charset=utf-8",
+						async: false
+					});
+					
+				}
 			}
-			$.ajax({
-				type: 'PUT',
-				url: "http://wfh.ninja/api/quote/" + quoteId + '/reject',
-				contentType: "application/json; charset=utf-8",
-				success: function(result) { this.loadNextQuote(); }.bind(this)
-			});
+			this.loadQuotes();
 		}.bind(this);
 	},
 
 	delete: function() {
 		return function() {
-			$('.form-button').attr('disabled', true);
-			var quoteId = this.state.quotes[this.state.index];
-			if (!quoteId) {
-				return this.loadNextQuote();
+			if (!confirm('Are you sure? This is irreversible!')) { return; }
+			checkboxes = document.getElementsByName('checkbox');
+			for(var i=0, n=checkboxes.length;i<n;i++) {
+				if (checkboxes[i].checked) {
+					// approve it
+					$.ajax({
+						type: 'DELETE',
+						url: "http://wfh.ninja/api/quote/" + checkboxes[i].id,
+						contentType: "application/json; charset=utf-8",
+						async: false
+					});
+					
+				}
 			}
-			$.ajax({
-				type: 'DELETE',
-				url: "http://wfh.ninja/api/quote/" + quoteId,
-				contentType: "application/json; charset=utf-8",
-				success: function(result) { this.loadNextQuote(); }.bind(this)
-			});
+			this.loadQuotes();
 		}.bind(this);
+	},
+
+	selectAll: function(f, e) {
+		checkboxes = document.getElementsByName('checkbox');
+		for(var i=0, n=checkboxes.length;i<n;i++) {
+			checkboxes[i].checked = f.target.checked;
+		}
 	},
 
 	render: function() {
@@ -125,34 +112,27 @@ var Quotes = React.createClass({
 			<div className="site-wrapper-inner">
 			<div className="cover-container">
 			<form  className="inner cover">
-			<div class="table-responsive">
-			<table class="table table-bordered table-condensed">
-			<tr>
-			<td><input type="checkbox" onClick="toggleSelect(this)" /> Select All</td>
-			<td>Quote</td>
-			<td>Status</td>
-			</tr>
-			<tr>
-			<td><input type="checkbox" name="checkbox" value="quote1" /></td>
-			<td>{this.state.quoteText}</td>
-			<td>Active</td>
-			</tr>
-			<tr class="danger">
-			<td><input type="checkbox" name="checkbox" value="quote2" /></td>
-			<td>Quote 2</td>
-			<td>Not Active</td>
-			</tr>
-			</table>
-			</div> 
+				<div class="table-responsive">
+					<table class="table table-bordered table-condensed">
+						<tr>
+							<td><input type="checkbox" onClick={this.selectAll} /> Select All</td>
+							<td>Quote</td>
+							<td>Status</td>
+						</tr>
+						{this.state.renderedRows}
+					</table>
+				</div> 
 
-			<FormButton onClick={this.reject} className="btn btn-lg btn-warning form-button">Reject</FormButton>
-			<FormButton onClick={this.approve} className="btn btn-lg btn-success form-button">Approve</FormButton>
-			<br /><br />
-			<FormButton onClick={this.delete} className="btn btn-lg btn-danger form-button">Delete</FormButton>
+				<FormButton onClick={this.reject()} className="btn btn-lg btn-warning form-button">Reject</FormButton>
+				<FormButton onClick={this.approve()} className="btn btn-lg btn-success form-button">Approve</FormButton>
+				<br />
+				<FormButton onClick={this.delete()} className="btn btn-lg btn-danger form-button">Delete</FormButton>
 			</form>
 			</div>
 			</div>
+
 			);
 	}
 });
 
+React.render(<AdminMain />, document.body);

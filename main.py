@@ -7,7 +7,7 @@ import simplejson as json
 import os, sys
 import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 sess = Session()
 app.config.from_object('config')
 
@@ -154,6 +154,7 @@ def post_new_vote(quote_id):
     db.session.commit()
 
     return jsonify(vote.serialize)
+
 
 cors = CORS(app)
 if __name__ == "__main__":
