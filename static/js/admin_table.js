@@ -128,9 +128,8 @@ var AdminMain = React.createClass({
 		}.bind(this);
 	},
 
-
-
 	render: function() {
+		Sortable.init();
 		return (
 			<div className="site-wrapper">
 			<div className="site-wrapper-inner">
@@ -143,16 +142,19 @@ var AdminMain = React.createClass({
 
 			<form>
 			<div className="table-responsive">
-			<table className="table table-bordered">
+			<table className="table table-bordered" data-sortable>
+			<thead>
 			<tr className="table-header">
-			<td className="checkbox-align"><input type="checkbox" onClick={this.selectAll} /></td>
-			<td>Quote</td>
-			<td>Status</td>
-			<td>Date Created</td>
-			<td>Score</td>
+			<th className="checkbox-align"><input type="checkbox" onClick={this.selectAll} /></th>
+			<th>Quote</th>
+			<th>Status</th>
+			<th>Date Created</th>
+			<th>Score</th>
 			</tr>
-			
+			</thead>
+			<tbody>
 			{this.state.renderedRows}
+			</tbody>
 			</table>
 			</div>
 			
