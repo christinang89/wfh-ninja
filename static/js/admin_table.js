@@ -28,10 +28,14 @@ var AdminMain = React.createClass({
 				quotes: result
 			});
 			var renderedRows = [];
+			var padZeroes = function(input) {
+				// pad 1 digit to 2 digits
+				return ("0" + input).slice(-2);
+			}
 			Object.keys(result).forEach(function(key) {
 				var quote = result[key];
 				var date = new Date(quote.date_created);
-				var formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+				var formattedDate = date.getFullYear() + "-" + padZeroes(date.getMonth() + 1) + "-" + padZeroes(date.getDate()) + " " +  padZeroes(date.getHours()) + ":" + padZeroes(date.getMinutes()) + ":" + padZeroes(date.getSeconds());
 				var quoteRow = (
 					
 					
@@ -40,7 +44,7 @@ var AdminMain = React.createClass({
 					<td>{quote.text}</td>
 					<td>{quote.active ? "Active" : "Inactive"}</td>
 					<td>{formattedDate}</td>
-					<td>{quote.score}</td>
+					<td data-value={parseInt(quote.score)}>{parseInt(quote.score)}</td>
 					</tr>
 					
 					
@@ -48,6 +52,7 @@ var AdminMain = React.createClass({
 				renderedRows.push(quoteRow);
 			});
 			this.setState({ renderedRows: renderedRows });
+		Sortable.init();
 		}.bind(this));  	
 	},
 
@@ -129,7 +134,6 @@ var AdminMain = React.createClass({
 	},
 
 	render: function() {
-		Sortable.init();
 		return (
 			<div className="site-wrapper">
 			<div className="site-wrapper-inner">
