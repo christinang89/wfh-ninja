@@ -115,11 +115,15 @@ def post_new_quote():
     if "conditions" in body:
         conditions = body['conditions']
 
-    quote = Quote(text = body['text'], conditions = json.dumps(conditions), view_count = 1, ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), active = False)
+    ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+    ip = ip.partition(',')[0]
+
+
+    quote = Quote(text = body['text'], conditions = json.dumps(conditions), view_count = 1, ip = ip, active = False)
     db.session.add(quote)
     db.session.commit()
 
-    vote = Vote(ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), value = 1, quote_id = quote.id)        #auto upvote every new quote by 1
+    vote = Vote(ip = ip, value = 1, quote_id = quote.id)        #auto upvote every new quote by 1
     db.session.add(vote)
     db.session.commit()
 
@@ -171,7 +175,9 @@ def delete_quote(id):
 @app.route("/quote/<int:quote_id>/vote", methods = ['POST'])
 def post_new_vote(quote_id):
     body = request.get_json()
-    vote = Vote(ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr), value = body['value'], quote_id = quote_id)
+    ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+    ip = ip.partition(',')[0]
+    vote = Vote(ip = ip, value = body['value'], quote_id = quote_id)
     db.session.add(vote)
     db.session.commit()
 
