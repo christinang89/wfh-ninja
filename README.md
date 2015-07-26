@@ -8,7 +8,7 @@ Live Demo: http://wfh.ninja/
 - Post new quote (user submission of quotes)
 - Get all approved/ unapproved quotes
 - Approve/ reject single quotes via admin panel
-- Admin panel for admin user registration, login, logout and approving/ rejecting of quotes
+- Admin panel (/admin) for admin user registration, login, logout and approving/ rejecting of quotes
 
 ## Architecture
 WFH-ninja is built with a Python-Flask backend, with a React/ JS/ Bootstrap frontend. WFH-ninja uses a Postgresql database as the datastore.
@@ -205,7 +205,8 @@ Example:
 }
 ```
 
-###User object methods###
+###Admin user object methods###
+Admin users can access /admin page to approve, reject and delete quotes. The following methods allow the creation of a new admin user.
 
 #### POST /register
 *Creates a new user*
