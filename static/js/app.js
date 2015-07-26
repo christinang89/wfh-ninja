@@ -46,7 +46,7 @@ var Main = React.createClass({
               <ul className="nav mastfoot-nav">
                 <li><a href="#"><div onClick={this.scrollDown}>Submit</div></a></li>
                 <li><a href="https://github.com/christinang89/wfh-ninja" target="_blank">Docs</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="https://medium.com/@christinang89/wfh-ninja-a-quotable-site-for-all-your-excuses-9b57dd7fad4f" target="_blank">About</a></li>
               </ul>
             </nav>
           </div>
