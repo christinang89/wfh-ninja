@@ -81,7 +81,8 @@ var Quotes = React.createClass({
 		  }
         this.setState({
           quoteText: result.text,
-          index: this.state.index + 1
+          index: this.state.index + 1,
+          quoteScore: result.score
         });
         $('.vote-button').attr('disabled', false);
       }
@@ -111,10 +112,10 @@ var Quotes = React.createClass({
       <div className="cover-container">
       <div className="inner cover">
       <p className="lead">I'm working from home today because...</p>
-      <h1>{this.state.quoteText}</h1>
+      <h1>{this.state.quoteText} <span className="badge">{this.state.quoteScore}</span></h1>
       <p className="lead">
-      <VoteButton onClick={this.vote(1)} className="btn btn-lg btn-success vote-button">Hell, Yeah!</VoteButton>
       <VoteButton onClick={this.vote(-1)} className="btn btn-lg btn-danger vote-button">This won't fly.</VoteButton>
+      <VoteButton onClick={this.vote(1)} className="btn btn-lg btn-success vote-button">Hell, Yeah!</VoteButton>
       </p>
       <p className="twitter-wrapper" style={{height: '20px'}}>
       <a href="https://twitter.com/share" data-text={"I'm working from home today because..."} className="twitter-share-button" data-via="christinang89" data-related="bencxr" data-count="none" data-hashtags="wfh">Tweet</a>

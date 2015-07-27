@@ -216,6 +216,9 @@ h1 {
   
 }
 
+.badge {
+  vertical-align: middle
+}
 
 /*
  * Footer
