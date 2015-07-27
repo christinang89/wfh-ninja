@@ -117,7 +117,7 @@ var Quotes = React.createClass({
       <VoteButton onClick={this.vote(-1)} className="btn btn-lg btn-danger vote-button">This won't fly.</VoteButton>
       </p>
       <p className="twitter-wrapper" style={{height: '20px'}}>
-      <a href="https://twitter.com/share" data-text={"I'm working from home today because..."} className="twitter-share-button" data-via="christinang89" data-related="christinang89,bencxr" data-count="none" data-hashtags="wfh">Tweet</a>
+      <a href="https://twitter.com/share" data-text={"I'm working from home today because..."} className="twitter-share-button" data-via="christinang89" data-related="bencxr" data-count="none" data-hashtags="wfh">Tweet</a>
       </p>
       </div>
       </div>
