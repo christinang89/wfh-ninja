@@ -41,6 +41,7 @@ var AdminMain = React.createClass({
 					
 					<tr>
 					<td className="checkbox-align"><input type="checkbox" name="checkbox" id={quote.id} value={quote.id} /></td>
+					<td>{quote.id}</td>
 					<td>{quote.text}</td>
 					<td>{quote.active ? "Active" : "Inactive"}</td>
 					<td>{formattedDate}</td>
@@ -150,6 +151,7 @@ var AdminMain = React.createClass({
 			<thead>
 			<tr className="table-header">
 			<th className="checkbox-align"><input type="checkbox" onClick={this.selectAll} /></th>
+			<th>Quote Id</th>
 			<th>Quote</th>
 			<th>Status</th>
 			<th>Date Created</th>
