@@ -134,8 +134,11 @@ def post_new_quote():
 def get_single_quote(id):
     quote = Quote.query.get(id)
     quote.view_count += 1
+    quote_score = db.session.query(db.func.sum(Vote.value)).group_by(Vote.quote_id).filter(Vote.quote_id==id).all()
     db.session.commit()
-    return jsonify(quote.serialize)
+    quote = quote.serialize
+    quote["score"] = quote_score[0][0]
+    return jsonify(quote)
 
 # approves/ activates a single quote
 @app.route("/quote/<int:id>/approve", methods = ['PUT'])
