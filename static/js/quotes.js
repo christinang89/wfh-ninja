@@ -26,9 +26,6 @@ var Quotes = React.createClass({
 		self.loadNextQuote(true);
 	 };
 
-    var twitter_script = document.createElement('script');
-    twitter_script.textContent = "!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');";
-    document.body.appendChild(twitter_script);
     $.get("/quote", function(result) {
       if (this.isMounted()) {
         var quoteIds = _.keys(result);
@@ -63,6 +60,25 @@ var Quotes = React.createClass({
     }.bind(this));
   },
 
+  updateTwitterButton: function() {
+    // remove any previous clone
+    $('#twitter-share-button-div').empty();
+
+    // create a clone of the twitter share button template
+    var clone = $('.twitter-share-button-template').clone()
+
+    // fix up our clone
+    clone.removeAttr("style"); // unhide the clone
+    clone.attr("data-url", window.location.toString());
+    clone.attr("class", "twitter-share-button");
+
+    // copy cloned button into div that we can clear later
+    $('#twitter-share-button-div').append(clone);
+
+    // reload twitter scripts to force them to run, converting a to iframe
+    $.getScript("http://platform.twitter.com/widgets.js");
+  },
+
   loadNextQuote: function(doNotPushState) {
     if (this.state.index >= (this.state.quotes.length - 1)) {
       quoteIds = _.sample(this.state.quotes, this.state.quotes.length);
@@ -85,6 +101,9 @@ var Quotes = React.createClass({
           index: this.state.index + 1,
           quoteScore: result.score
         });
+
+        this.updateTwitterButton();
+
         $('.vote-button').attr('disabled', false);
       }
     }.bind(this));
@@ -119,7 +138,7 @@ var Quotes = React.createClass({
       <VoteButton onClick={this.vote(1)} className="btn btn-lg btn-success vote-button">Hell, Yeah!</VoteButton>
       </p>
       <p className="twitter-wrapper" style={{height: '20px'}}>
-      <a href="https://twitter.com/share" data-text={"I'm working from home today because..."} className="twitter-share-button" data-via="christinang89" data-related="bencxr" data-count="none" data-hashtags="wfh">Tweet</a>
+      <a href="https://twitter.com/share" data-text={"I'm working from home today because..."} className="twitter-share-button-template" data-via="christinang89" data-related="bencxr" data-count="none" data-hashtags="wfh"><div id="twitter-share-button-div"/></a>
       </p>
       </div>
       </div>

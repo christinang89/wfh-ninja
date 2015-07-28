@@ -2,6 +2,7 @@ from flask import *
 from flask.json import JSONEncoder
 from flask.ext.cors import CORS
 from flask.ext.login import LoginManager, login_user , logout_user , current_user , login_required
+from werkzeug.contrib.fixers import ProxyFix
 
 import simplejson as json
 import os, sys
