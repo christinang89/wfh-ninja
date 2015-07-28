@@ -55,6 +55,7 @@ var Quotes = React.createClass({
       if (this.isMounted()) {
         this.setState({
           quoteText: result.text,
+          quoteScore: result.score,
           index: this.state.quotes.length // force invalid index to restart it again
         });
         $('.vote-button').attr('disabled', false);
