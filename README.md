@@ -83,7 +83,7 @@ Result format:
 ```
 
 #### GET /quote?all=true (requires logged in)
-*Returns list of all Quote ids and their details*
+*If logged in, returns list of all Quote ids and their details. Else, returns list of only active Quote ids and their details.*
 
 Result format:
 
@@ -142,6 +142,7 @@ Result format:
   "date_created": "2015-05-17T23:51:26.138167",
   "id": 17,
   "ip": "127.0.0.1",
+  "score": 124,
   "text": "quote content",
   "view_count": 2
 }
