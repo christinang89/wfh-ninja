@@ -191,5 +191,5 @@ def delete_quote(id):
 cors = CORS(app)
 if __name__ == "__main__":
     
-    app.debug = True    
+    # app.debug = True    #uncomment to run debug mode
     app.run()
