@@ -87,6 +87,11 @@ def logout():
     logout_user()
     return redirect("/login", code=302)
 
+# renders summary page
+@app.route('/summary', methods=['GET'])
+def render_summary():
+    return app.send_static_file('summary.html')
+
 # get all quotes
 @app.route("/quote", methods = ['GET'])
 def get_quote():
