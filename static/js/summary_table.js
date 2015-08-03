@@ -65,6 +65,11 @@ var SummaryMain = React.createClass({
 			</tbody>
 			</table>
 			</div>
+
+			<div className="admin-buttons">
+			Want to contribute to this? <a href="/">Vote now!</a>
+
+			</div>
 			
 			
 			</form>
