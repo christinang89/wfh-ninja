@@ -50,7 +50,7 @@ WFH-ninja is built with a Python-Flask backend, with a React/ JS/ Bootstrap fron
 
 ## Documentation
 
-###Quote object methods###
+### Quote object methods ###
 
 #### GET /quote (not logged in)
 *Returns list of active Quote ids and their details*
@@ -206,7 +206,7 @@ Example:
 }
 ```
 
-###Admin user object methods###
+### Admin user object methods ###
 Admin users can access /admin page to approve, reject and delete quotes. The following methods allow the creation of a new admin user.
 
 #### POST /register
